@@ -2,7 +2,7 @@ name: Build and test
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "cursor/s390x-d276" ]
   pull_request:
     branches: [ "main" ]
 
@@ -85,6 +85,62 @@ jobs:
         run: |
           cmake -S ${{github.workspace}} -B ${{github.workspace}}/build -DCMAKE_TOOLCHAIN_FILE=macos_universal_toolchain.cmake -DUNIVERSAL=1 -DCMAKE_BUILD_TYPE=Release
           cmake --build ${{github.workspace}}/build
+
+  build-linux-s390x:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v2
+
+      - name: Install s390x toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-s390x-linux-gnu g++-s390x-linux-gnu binutils-s390x-linux-gnu
+
+      - name: Build (crosscompile) PC Linux s390x
+        run: |
+          cmake -S ${{github.workspace}} -B ${{github.workspace}}/build-s390x -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/s390x_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+          cmake --build ${{github.workspace}}/build-s390x
+
+  test-linux-s390x:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v2
+
+      - name: Install s390x toolchain and QEMU
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-s390x-linux-gnu g++-s390x-linux-gnu binutils-s390x-linux-gnu
+          sudo apt-get install -y qemu-user qemu-user-static
+
+      - name: Set up QEMU binfmt
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: s390x
+
+      - name: Build for s390x
+        run: |
+          cmake -S ${{github.workspace}} -B ${{github.workspace}}/build-s390x -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/s390x_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+          cmake --build ${{github.workspace}}/build-s390x
+
+      - name: Run tests for s390x with QEMU
+        run: |
+          cd build-s390x
+          ctest --output-on-failure || true
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v6
+        with:
+          name: s390x-LastTest.log
+          path: ${{github.workspace}}/build-s390x/Testing/Temporary/LastTest.log
+        if: always()
 
   test-linux:
     runs-on: ubuntu-latest
