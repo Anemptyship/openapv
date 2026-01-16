@@ -134,7 +134,8 @@ jobs:
         run: |
           cd build-s390x
           export QEMU_LD_PREFIX=/usr/s390x-linux-gnu
-          ctest --output-on-failure
+          # Increase timeout for QEMU emulation (slower than native)
+          ctest --output-on-failure --timeout 120
 
       - name: Upload test results
         uses: actions/upload-artifact@v6
