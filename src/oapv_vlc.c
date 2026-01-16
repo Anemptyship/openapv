@@ -593,30 +593,37 @@ int oapve_vlc_get_coef_rate(oapve_core_t* core, s16* coef, int c)
 // start of decoder code
 #if ENABLE_DECODER
 ///////////////////////////////////////////////////////////////////////////////
-// Optimization: 32-bit refill to reduce branch overhead. 
+// Optimization: 64-bit refill to reduce branch overhead. 
 // NOTE: This implementation assumes Little Endian CPU (x86/ARM64).
-// For Big Endian CPUs, BSR_SWAP32 should be adjusted (no swap needed if stream is BE).
+// For Big Endian CPUs, BSR_SWAP64 should be adjusted (no swap needed if stream is BE).
 #if defined(__GNUC__) || defined(__clang__)
-#define BSR_SWAP32(x) __builtin_bswap32(x)
+#define BSR_SWAP64(x) __builtin_bswap64(x)
 #else
-#define BSR_SWAP32(x) ((((x) & 0xff000000) >> 24) | (((x) & 0x00ff0000) >> 8) | (((x) & 0x0000ff00) << 8) | (((x) & 0x000000ff) << 24))
+#define BSR_SWAP64(x) ((((x) & 0xff00000000000000ull) >> 56) | \
+                       (((x) & 0x00ff000000000000ull) >> 40) | \
+                       (((x) & 0x0000ff0000000000ull) >> 24) | \
+                       (((x) & 0x000000ff00000000ull) >> 8)  | \
+                       (((x) & 0x00000000ff000000ull) << 8)  | \
+                       (((x) & 0x0000000000ff0000ull) << 24) | \
+                       (((x) & 0x000000000000ff00ull) << 40) | \
+                       (((x) & 0x00000000000000ffull) << 56))
 #endif
 
 #define BSR_FLUSH_1BYTE(bs) {                   \
-        if ((bs)->cur + 4 <= (bs)->end) {       \
-            u32 _val;                           \
-            memcpy(&_val, (bs)->cur, 4);        \
-            (bs)->code = BSR_SWAP32(_val);      \
-            (bs)->cur += 4;                     \
-            (bs)->leftbits = 32;                \
+        if ((bs)->cur + 8 <= (bs)->end) {       \
+            u64 _val;                           \
+            memcpy(&_val, (bs)->cur, 8);        \
+            (bs)->code = BSR_SWAP64(_val);      \
+            (bs)->cur += 8;                     \
+            (bs)->leftbits = 64;                \
         } else {                                \
-            (bs)->code = *((bs)->cur++) << 24;  \
+            (bs)->code = (u64)(*((bs)->cur++)) << 56; \
             (bs)->leftbits = 8;                 \
         }                                       \
     }
 
 #define BSR_READ_1BIT(bs, bit) {                \
-        (bit) = ((bs)->code >> 31) & 0x1;       \
+        (bit) = ((bs)->code >> 63) & 0x1;       \
         (bs)->code <<= 1;                       \
         (bs)->leftbits -= 1;                    \
     }
