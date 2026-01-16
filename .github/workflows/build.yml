@@ -118,22 +118,23 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y gcc-s390x-linux-gnu g++-s390x-linux-gnu binutils-s390x-linux-gnu
-          sudo apt-get install -y qemu-user qemu-user-static
+          sudo apt-get install -y qemu-user qemu-user-static libc6-s390x-cross
 
       - name: Set up QEMU binfmt
         uses: docker/setup-qemu-action@v3
         with:
           platforms: s390x
 
-      - name: Build for s390x
+      - name: Build for s390x (static)
         run: |
-          cmake -S ${{github.workspace}} -B ${{github.workspace}}/build-s390x -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/s390x_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+          cmake -S ${{github.workspace}} -B ${{github.workspace}}/build-s390x -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/s390x_toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DOAPV_APP_STATIC_BUILD=ON
           cmake --build ${{github.workspace}}/build-s390x
 
       - name: Run tests for s390x with QEMU
         run: |
           cd build-s390x
-          ctest --output-on-failure || true
+          export QEMU_LD_PREFIX=/usr/s390x-linux-gnu
+          ctest --output-on-failure
 
       - name: Upload test results
         uses: actions/upload-artifact@v6
