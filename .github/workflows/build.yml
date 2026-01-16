@@ -171,4 +171,4 @@ jobs:
       - name: Run tests for s390x
         run: |
           cd build-s390x
-          ctest --output-on-failure
+          ctest --output-on-failure --timeout 600
