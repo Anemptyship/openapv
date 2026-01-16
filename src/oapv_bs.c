@@ -183,6 +183,15 @@ static int bsr_flush(oapv_bs_t *bs, int byte)
         return -1;
     }
 
+    if (byte == 4 && remained >= 4) {
+        u32 _val;
+        oapv_mcpy(&_val, bs->cur, 4);
+        bs->code = OAPV_BE32_TO_CPU(_val);
+        bs->cur += 4;
+        bs->leftbits = 32;
+        return 0;
+    }
+
     bs->leftbits = byte << 3;
 
     while(byte) {
@@ -193,6 +202,8 @@ static int bsr_flush(oapv_bs_t *bs, int byte)
     bs->code = code;
     return 0;
 }
+
+
 
 void oapv_bsr_init(oapv_bs_t *bs, u8 *buf, u32 size, oapv_bs_fn_flush_t fn_flush)
 {
