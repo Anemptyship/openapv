@@ -1,0 +1,17 @@
+# --- oapv.pc.in file ---
+prefix=/usr/local 
+exec_prefix=/usr/local/bin
+libdir=/usr/local/lib
+includedir=/usr/local/include/oapv
+
+Name: oapv
+Description: Advanced Professional Video Codec
+
+Version: 0.2.0.4
+
+Requires:
+Libs: -L${libdir} -loapv
+Libs.private: -L${libdir}/oapv -lm
+
+Cflags: -I${includedir} 
+Cflags.private: -DOAPV_STATIC_DEFINE

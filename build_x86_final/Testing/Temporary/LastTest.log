@@ -1,0 +1,820 @@
+Start testing: Jan 09 04:32 UTC
+----------------------------------------------------------
+1/16 Testing: Encoder_runs
+1/16 Test: Encoder_runs
+Command: "/work/build_x86_final/bin/oapv_app_enc"
+Directory: /work/build_x86_final
+"Encoder_runs" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Encoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Syntax: 
+  /work/build_x86_final/bin/oapv_app_enc -i 'input-file' [ options ] 
+
+Options:
+  --help
+    : list options
+  -v, --verbose [INTEGER] (optional) [2]
+    : verbose (log) level
+      - 0: no message
+      - 1: only error message
+      - 2: simple messages
+      - 3: frame-level messages
+  -i, --input [STRING]
+    : file name of input video
+  -o, --output [STRING] (optional) [None]
+    : file name of output bitstream
+  -r, --recon [STRING] (optional) [None]
+    : file name of reconstructed video
+  -w, --width [STRING] (optional) [None]
+    : pixel width of input video
+  -h, --height [STRING] (optional) [None]
+    : pixel height of input video
+  -q, --qp [STRING] (optional) [auto]
+    : QP value: 0 ~ (63 + (bitdepth - 10)*6) 
+      - 10bit input: 0 ~ 63
+      - 12bit input: 0 ~ 75
+      - 'auto' means that the value is internally determined
+  -z, --fps [STRING] (optional) [None]
+    : frame rate (frames per second)
+  -m, --threads [STRING] (optional) [auto]
+    : force use of a specific number of threads
+      - 'auto' means that the value is internally determined
+  --preset [STRING] (optional) [None]
+    : encoder preset [fastest, fast, medium, slow, placebo]
+  -d, --input-depth [INTEGER] (optional) [10]
+    : input bit depth (8, 10-12)
+      - Note: 8bit input will be converted to 10bit
+  --input-csp [INTEGER] (optional) [-1]
+    : input color space (chroma format)
+      - 0: 400
+      - 2: 422
+      - 3: 444
+      - 4: 4444
+      - 5: P2(Planar Y, Combined CbCr, 422)
+  --family [STRING] (optional) [None]
+    : family name for bitrate setting
+      - 422-LQ: YCbCr422 low quality
+      - 422-SQ: YCbCr422 standard quality
+      - 422-HQ: YCbCr422 high quality
+      - 444-UQ: YCbCr444 ultra quality
+      Note: 'family' and 'bitrate' value cannot be set together.
+            The family and profile arguments should be set with the same
+            color space, if they coexists.
+  --profile [STRING] (optional) [422-10]
+    : profile string
+      - 422-10: YCbCr422 10bit (default)
+      - 422-12; YCbCr422 12bit
+      - 444-10: YCbCr444 10bit
+      - 444-12; YCbCr444 12bit
+      - 4444-10: YCbCr4444 10bit
+      - 4444-12; YCbCr4444 12bit
+      - 400-10: YCbCr400 (monochrome) 10bit
+      Note: Color space and bit depth of input video will be converted
+            automatically to support the given profile, if needs
+            The family and profile arguments should be set with the same
+            color space, if they coexists.
+  --level [STRING] (optional) [auto]
+    : level setting (1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 5.1, 6, 6.1, 7, 7.1)
+      - 'auto' means that the value is internally determined
+  --band [STRING] (optional) [auto]
+    : band setting (0, 1, 2, 3)
+      - 'auto' means that the value is internally determined
+  --max-au [INTEGER] (optional) [0]
+    : maximum number of access units to be encoded
+  --seek [INTEGER] (optional) [0]
+    : number of skipped access units before encoding
+  --qp-offset-c1 [STRING] (optional) [None]
+    : QP offset value for Component 1 (Cb)
+  --qp-offset-c2 [STRING] (optional) [None]
+    : QP offset value for Component 2 (Cr)
+  --qp-offset-c3 [STRING] (optional) [None]
+    : QP offset value for Component 3
+  --tile-w [STRING] (optional) [None]
+    : width of tile in units of pixels
+  --tile-h [STRING] (optional) [None]
+    : height of tile in units of pixels
+  --bitrate [STRING] (optional) [None]
+    : enable ABR rate control
+      bitrate in terms of kbits per second: Kbps(none,K,k), Mbps(M,m)
+      ex) 100 = 100K = 0.1M
+  --q-matrix-c0 [STRING] (optional) [None]
+    : custom quantization matrix for component 0 (Y) "q1 q2 ... q63 q64"
+  --q-matrix-c1 [STRING] (optional) [None]
+    : custom quantization matrix for component 1 (Cb) "q1 q2 ... q63 q64"
+  --q-matrix-c2 [STRING] (optional) [None]
+    : custom quantization matrix for component 2 (Cr) "q1 q2 ... q63 q64"
+  --q-matrix-c3 [STRING] (optional) [None]
+    : custom quantization matrix for component 3 "q1 q2 ... q63 q64"
+  --color-primaries [INTEGER] (optional) [-1]
+    : ColourPrimaries value defined in ITU-T H.273
+      - 1: bt709
+      - 2: unspecified
+      - 3: reserved
+      - 4: bt470m
+      - 5: bt470bg
+      - 6: smpte170m
+      - 7: smpte240m
+      - 8: film
+      - 9: bt2020
+      - 10: smpte4280
+      - 11: smpte4311
+      - 12: smpte4322
+      Note: This value should be set along with all other color aspects.
+            i.e. 'color-primaries', 'color-transfer', 'color-matrix', 
+            and 'color-range' should all be set.
+  --color-transfer [INTEGER] (optional) [-1]
+    : TransferCharacteristics value defined in ITU-T H.273
+      - 1: bt709
+      - 2: unspecified
+      - 4: bt470m
+      - 5: bt470bg
+      - 6: smpte170m
+      - 7: smpte240m
+      - 8: linear
+      - 9: log100
+      - 10: log316
+      - 11: iec61966-2-4
+      - 12: bt1361e
+      - 13: iec61966-2-1
+      - 14: bt2020-10
+      - 15: bt2020-12
+      - 16: smpte2084
+      - 17: smpte428
+      - 18: hybrid log-gamma (HLG), arib-std-b67
+      Note: This value should be set along with all other color aspects.
+            i.e. 'color-primaries', 'color-transfer', 'color-matrix', 
+            and 'color-range' should all be set.
+  --color-matrix [INTEGER] (optional) [-1]
+    : MatrixCoefficients value defined in ITU-T H.273
+      - 0: gbr
+      - 1: bt709
+      - 2: unspecified
+      - 4: fcc
+      - 5: bt470bg
+      - 6: smpte170m
+      - 7: smpte240m
+      - 8: ycgco
+      - 9: bt2020nc
+      - 10: bt2020c
+      - 11: smpte2085
+      - 12: chroma-derived-nc
+      - 13: chroma-derived-c
+      - 14: ictcp
+      Note: This value should be set along with all other color aspects.
+            i.e. 'color-primaries', 'color-transfer', 'color-matrix', 
+            and 'color-range' should all be set.
+  --color-range [INTEGER] (optional) [-1]
+    : Color range
+      - 0: limited color range ('tv' color range) 
+      - 1: full color range ('pc' color range)
+      Note: This value should be set along with all other color aspects.
+            i.e. 'color-primaries', 'color-transfer', 'color-matrix', 
+            and 'color-range' should all be set.
+  --hash [FLAG] (optional) [Off]
+    : embed frame hash value for conformance checking in decoding
+  --master-display [STRING] (optional) [None]
+    : mastering display color volume metadata
+  --max-cll [STRING] (optional) [None]
+    : content light level information metadata
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"Encoder_runs" end time: Jan 09 04:32 UTC
+"Encoder_runs" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/16 Testing: Decoder_runs
+2/16 Test: Decoder_runs
+Command: "/work/build_x86_final/bin/oapv_app_dec"
+Directory: /work/build_x86_final
+"Decoder_runs" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Syntax: 
+  /work/build_x86_final/bin/oapv_app_dec -i 'input-file' [ options ] 
+
+Options:
+  --help
+    : list options
+  -v, --verbose [INTEGER] (optional) [2]
+    : verbose (log) level
+      - 0: no message
+      - 1: only error message
+      - 2: simple messages
+      - 3: frame-level messages
+  -i, --input [STRING]
+    : file name of input bitstream
+  -o, --output [STRING] (optional) [None]
+    : file name of decoded output
+  --max-au [INTEGER] (optional) [0]
+    : maximum number of access units to be decoded
+  -m, --threads [STRING] (optional) [auto]
+    : force use of a specific number of threads
+      - 'auto' means that the value is internally determined
+  -d, --output-depth [INTEGER] (optional) [0]
+    : output bit depth (8, 10, 12) 
+  --hash [FLAG] (optional) [Off]
+    : parse frame hash value for conformance checking in decoding
+  --output-csp [INTEGER] (optional) [0]
+    : output color space (chroma format)
+      - 0: coded CSP
+      - 1: convert to P210 in case of YCbCr422
+
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"Decoder_runs" end time: Jan 09 04:32 UTC
+"Decoder_runs" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/16 Testing: encode
+3/16 Test: encode
+Command: "/work/build_x86_final/bin/oapv_app_enc" "-i" "/work/test/sequence/pattern1_yuv422p10le_320x240_25fps.y4m" "-w" "320" "-h" "240" "-z" "25" "-o" "out.oapv"
+Directory: /work/build_x86_final
+"encode" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Encoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+[ 0 / 0 AU(s) ] [ 166.67 AU/sec ] [ 3344.2000 kbps ] [  0h  0m  0s ] [ 1 / 0 AU(s) ] [ 181.82 AU/sec ] [ 3384.8000 kbps ] [  0h  0m  0s ] [ 2 / 0 AU(s) ] [ 176.47 AU/sec ] [ 3424.6000 kbps ] [  0h  0m  0s ] [ 3 / 0 AU(s) ] [ 181.82 AU/sec ] [ 3465.5000 kbps ] [  0h  0m  0s ] [ 4 / 0 AU(s) ] [ 192.31 AU/sec ] [ 3494.0800 kbps ] [  0h  0m  0s ] [ 5 / 0 AU(s) ] [ 200.00 AU/sec ] [ 3524.8000 kbps ] [  0h  0m  0s ] [ 6 / 0 AU(s) ] [ 200.00 AU/sec ] [ 3559.0571 kbps ] [  0h  0m  0s ] [ 7 / 0 AU(s) ] [ 205.13 AU/sec ] [ 3595.3000 kbps ] [  0h  0m  0s ] [ 8 / 0 AU(s) ] [ 209.30 AU/sec ] [ 3632.9778 kbps ] [  0h  0m  0s ] [ 9 / 0 AU(s) ] [ 208.33 AU/sec ] [ 3670.2800 kbps ] [  0h  0m  0s ] [ 10 / 0 AU(s) ] [ 211.54 AU/sec ] [ 3710.4909 kbps ] [  0h  0m  0s ] [ 11 / 0 AU(s) ] [ 214.29 AU/sec ] [ 3746.0000 kbps ] [  0h  0m  0s ] [ 12 / 0 AU(s) ] [ 213.11 AU/sec ] [ 3782.8615 kbps ] [  0h  0m  0s ] [ 13 / 0 AU(s) ] [ 215.38 AU/sec ] [ 3814.3571 kbps ] [  0h  0m  0s ] [ 14 / 0 AU(s) ] [ 217.39 AU/sec ] [ 3841.3467 kbps ] [  0h  0m  0s ] [ 15 / 0 AU(s) ] [ 219.18 AU/sec ] [ 3864.5500 kbps ] [  0h  0m  0s ] [ 16 / 0 AU(s) ] [ 217.95 AU/sec ] [ 3884.8941 kbps ] [  0h  0m  0s ] [ 17 / 0 AU(s) ] [ 219.51 AU/sec ] [ 3902.9444 kbps ] [  0h  0m  0s ] [ 18 / 0 AU(s) ] [ 220.93 AU/sec ] [ 3919.6421 kbps ] [  0h  0m  0s ] [ 19 / 0 AU(s) ] [ 222.22 AU/sec ] [ 3934.1000 kbps ] [  0h  0m  0s ] [ 20 / 0 AU(s) ] [ 221.05 AU/sec ] [ 3947.8000 kbps ] [  0h  0m  0s ] [ 21 / 0 AU(s) ] [ 222.22 AU/sec ] [ 3960.3364 kbps ] [  0h  0m  0s ] [ 22 / 0 AU(s) ] [ 223.30 AU/sec ] [ 3971.7391 kbps ] [  0h  0m  0s ] [ 23 / 0 AU(s) ] [ 224.30 AU/sec ] [ 3981.7083 kbps ] [  0h  0m  0s ] [ 24 / 0 AU(s) ] [ 225.23 AU/sec ] [ 3991.0880 kbps ] [  0h  0m  0s ] [ 25 / 0 AU(s) ] [ 224.14 AU/sec ] [ 3997.1769 kbps ] [  0h  0m  0s ] [ 26 / 0 AU(s) ] [ 225.00 AU/sec ] [ 4002.4519 kbps ] [  0h  0m  0s ] [ 27 / 0 AU(s) ] [ 225.81 AU/sec ] [ 4007.1786 kbps ] [  0h  0m  0s ] [ 28 / 0 AU(s) ] [ 226.56 AU/sec ] [ 4011.7862 kbps ] [  0h  0m  0s ] [ 29 / 0 AU(s) ] [ 227.27 AU/sec ] [ 4015.8133 kbps ] [  0h  0m  0s ] [ 30 / 0 AU(s) ] [ 226.28 AU/sec ] [ 4019.5484 kbps ] [  0h  0m  0s ] [ 31 / 0 AU(s) ] [ 226.95 AU/sec ] [ 4023.3375 kbps ] [  0h  0m  0s ] [ 32 / 0 AU(s) ] [ 227.59 AU/sec ] [ 4026.9576 kbps ] [  0h  0m  0s ] [ 33 / 0 AU(s) ] [ 228.19 AU/sec ] [ 4030.0941 kbps ] [  0h  0m  0s ] [ 34 / 0 AU(s) ] [ 228.76 AU/sec ] [ 4033.1486 kbps ] [  0h  0m  0s ] [ 35 / 0 AU(s) ] [ 227.85 AU/sec ] [ 4035.9278 kbps ] [  0h  0m  0s ] [ 36 / 0 AU(s) ] [ 228.40 AU/sec ] [ 4038.2973 kbps ] [  0h  0m  0s ] [ 37 / 0 AU(s) ] [ 228.92 AU/sec ] [ 4040.3947 kbps ] [  0h  0m  0s ] [ 38 / 0 AU(s) ] [ 229.41 AU/sec ] [ 4042.5333 kbps ] [  0h  0m  0s ] [ 39 / 0 AU(s) ] [ 229.89 AU/sec ] [ 4044.2000 kbps ] [  0h  0m  0s ] [ 40 / 0 AU(s) ] [ 229.05 AU/sec ] [ 4045.6195 kbps ] [  0h  0m  0s ] [ 41 / 0 AU(s) ] [ 229.51 AU/sec ] [ 4047.0476 kbps ] [  0h  0m  0s ] [ 42 / 0 AU(s) ] [ 229.95 AU/sec ] [ 4048.1442 kbps ] [  0h  0m  0s ] [ 43 / 0 AU(s) ] [ 230.37 AU/sec ] [ 4049.1727 kbps ] [  0h  0m  0s ] [ 44 / 0 AU(s) ] [ 230.77 AU/sec ] [ 4050.2044 kbps ] [  0h  0m  0s ] [ 45 / 0 AU(s) ] [ 230.00 AU/sec ] [ 4051.2652 kbps ] [  0h  0m  0s ] [ 46 / 0 AU(s) ] [ 230.39 AU/sec ] [ 4052.2383 kbps ] [  0h  0m  0s ] [ 47 / 0 AU(s) ] [ 230.77 AU/sec ] [ 4053.0917 kbps ] [  0h  0m  0s ] [ 48 / 0 AU(s) ] [ 231.13 AU/sec ] [ 4054.0082 kbps ] [  0h  0m  0s ] [ 49 / 0 AU(s) ] [ 230.41 AU/sec ] [ 4054.7720 kbps ] [  0h  0m  0s ] [ 50 / 0 AU(s) ] [ 230.77 AU/sec ] [ 4056.8431 kbps ] [  0h  0m  0s ] [ 51 / 0 AU(s) ] [ 231.11 AU/sec ] [ 4058.8615 kbps ] [  0h  0m  0s ] [ 52 / 0 AU(s) ] [ 231.44 AU/sec ] [ 4060.7849 kbps ] [  0h  0m  0s ] [ 53 / 0 AU(s) ] [ 230.77 AU/sec ] [ 4062.7111 kbps ] [  0h  0m  0s ] [ 54 / 0 AU(s) ] [ 231.09 AU/sec ] [ 4064.7527 kbps ] [  0h  0m  0s ] [ 55 / 0 AU(s) ] [ 231.40 AU/sec ] [ 4066.4929 kbps ] [  0h  0m  0s ] [ 56 / 0 AU(s) ] [ 231.71 AU/sec ] [ 4068.3789 kbps ] [  0h  0m  0s ] [ 57 / 0 AU(s) ] [ 232.00 AU/sec ] [ 4070.5103 kbps ] [  0h  0m  0s ] [ 58 / 0 AU(s) ] [ 231.37 AU/sec ] [ 4072.5525 kbps ] [  0h  0m  0s ] [ 59 / 0 AU(s) ] [ 231.66 AU/sec ] [ 4074.6100 kbps ] [  0h  0m  0s ] [ 60 / 0 AU(s) ] [ 231.94 AU/sec ] [ 4076.6328 kbps ] [  0h  0m  0s ] [ 61 / 0 AU(s) ] [ 232.21 AU/sec ] [ 4078.6323 kbps ] [  0h  0m  0s ] [ 62 / 0 AU(s) ] [ 232.47 AU/sec ] [ 4080.4730 kbps ] [  0h  0m  0s ] [ 63 / 0 AU(s) ] [ 231.88 AU/sec ] [ 4082.4000 kbps ] [  0h  0m  0s ] [ 64 / 0 AU(s) ] [ 232.14 AU/sec ] [ 4084.2523 kbps ] [  0h  0m  0s ] [ 65 / 0 AU(s) ] [ 232.39 AU/sec ] [ 4086.0818 kbps ] [  0h  0m  0s ] [ 66 / 0 AU(s) ] [ 232.64 AU/sec ] [ 4087.7552 kbps ] [  0h  0m  0s ] [ 67 / 0 AU(s) ] [ 232.08 AU/sec ] [ 4089.5412 kbps ] [  0h  0m  0s ] [ 68 / 0 AU(s) ] [ 232.32 AU/sec ] [ 4091.2145 kbps ] [  0h  0m  0s ] [ 69 / 0 AU(s) ] [ 232.56 AU/sec ] [ 4092.8343 kbps ] [  0h  0m  0s ] [ 70 / 0 AU(s) ] [ 232.79 AU/sec ] [ 4094.6535 kbps ] [  0h  0m  0s ] [ 71 / 0 AU(s) ] [ 232.26 AU/sec ] [ 4096.3833 kbps ] [  0h  0m  0s ] [ 72 / 0 AU(s) ] [ 232.48 AU/sec ] [ 4097.9562 kbps ] [  0h  0m  0s ] [ 73 / 0 AU(s) ] [ 232.70 AU/sec ] [ 4099.4865 kbps ] [  0h  0m  0s ] [ 74 / 0 AU(s) ] [ 232.92 AU/sec ] [ 4101.0507 kbps ] [  0h  0m  0s ] [ 75 / 0 AU(s) ] [ 233.13 AU/sec ] [ 4102.7579 kbps ] [  0h  0m  0s ] [ 76 / 0 AU(s) ] [ 232.63 AU/sec ] [ 4104.4052 kbps ] [  0h  0m  0s ] [ 77 / 0 AU(s) ] [ 232.84 AU/sec ] [ 4105.9538 kbps ] [  0h  0m  0s ] [ 78 / 0 AU(s) ] [ 233.04 AU/sec ] [ 4107.3316 kbps ] [  0h  0m  0s ] [ 79 / 0 AU(s) ] [ 233.24 AU/sec ] [ 4108.6925 kbps ] [  0h  0m  0s ] [ 80 / 0 AU(s) ] [ 233.43 AU/sec ] [ 4109.9951 kbps ] [  0h  0m  0s ] [ 81 / 0 AU(s) ] [ 232.95 AU/sec ] [ 4111.2610 kbps ] [  0h  0m  0s ] [ 82 / 0 AU(s) ] [ 233.15 AU/sec ] [ 4112.5084 kbps ] [  0h  0m  0s ] [ 83 / 0 AU(s) ] [ 233.33 AU/sec ] [ 4113.6833 kbps ] [  0h  0m  0s ] [ 84 / 0 AU(s) ] [ 233.52 AU/sec ] [ 4114.7694 kbps ] [  0h  0m  0s ] [ 85 / 0 AU(s) ] [ 233.70 AU/sec ] [ 4115.8651 kbps ] [  0h  0m  0s ] [ 86 / 0 AU(s) ] [ 233.24 AU/sec ] [ 4116.8069 kbps ] [  0h  0m  0s ] [ 87 / 0 AU(s) ] [ 233.42 AU/sec ] [ 4117.7409 kbps ] [  0h  0m  0s ] [ 88 / 0 AU(s) ] [ 233.60 AU/sec ] [ 4118.6180 kbps ] [  0h  0m  0s ] [ 89 / 0 AU(s) ] [ 233.77 AU/sec ] [ 4119.4756 kbps ] [  0h  0m  0s ] [ 90 / 0 AU(s) ] [ 233.93 AU/sec ] [ 4120.1736 kbps ] [  0h  0m  0s ] [ 91 / 0 AU(s) ] [ 233.50 AU/sec ] [ 4120.8587 kbps ] [  0h  0m  0s ] [ 92 / 0 AU(s) ] [ 233.67 AU/sec ] [ 4121.5355 kbps ] [  0h  0m  0s ] [ 93 / 0 AU(s) ] [ 233.83 AU/sec ] [ 4122.2532 kbps ] [  0h  0m  0s ] [ 94 / 0 AU(s) ] [ 233.99 AU/sec ] [ 4122.7874 kbps ] [  0h  0m  0s ] [ 95 / 0 AU(s) ] [ 234.15 AU/sec ] [ 4123.4583 kbps ] [  0h  0m  0s ] [ 96 / 0 AU(s) ] [ 233.73 AU/sec ] [ 4124.1237 kbps ] [  0h  0m  0s ] [ 97 / 0 AU(s) ] [ 233.89 AU/sec ] [ 4124.7469 kbps ] [  0h  0m  0s ] [ 98 / 0 AU(s) ] [ 234.04 AU/sec ] [ 4125.2101 kbps ] [  0h  0m  0s ] [ 99 / 0 AU(s) ] [ 234.19 AU/sec ] [ 4125.7140 kbps ] [  0h  0m  0s ] [ 100 / 0 AU(s) ] [ 233.80 AU/sec ] [ 4125.8990 kbps ] [  0h  0m  0s ] [ 101 / 0 AU(s) ] [ 233.94 AU/sec ] [ 4125.9882 kbps ] [  0h  0m  0s ] [ 102 / 0 AU(s) ] [ 234.09 AU/sec ] [ 4126.0388 kbps ] [  0h  0m  0s ] [ 103 / 0 AU(s) ] [ 234.23 AU/sec ] [ 4126.1327 kbps ] [  0h  0m  0s ] [ 104 / 0 AU(s) ] [ 234.38 AU/sec ] [ 4126.1733 kbps ] [  0h  0m  0s ] [ 105 / 0 AU(s) ] [ 234.00 AU/sec ] [ 4126.1811 kbps ] [  0h  0m  0s ] [ 106 / 0 AU(s) ] [ 234.14 AU/sec ] [ 4126.2953 kbps ] [  0h  0m  0s ] [ 107 / 0 AU(s) ] [ 234.27 AU/sec ] [ 4126.4111 kbps ] [  0h  0m  0s ] [ 108 / 0 AU(s) ] [ 234.41 AU/sec ] [ 4126.5174 kbps ] [  0h  0m  0s ] [ 109 / 0 AU(s) ] [ 234.54 AU/sec ] [ 4126.7091 kbps ] [  0h  0m  0s ] [ 110 / 0 AU(s) ] [ 234.18 AU/sec ] [ 4126.8631 kbps ] [  0h  0m  0s ] [ 111 / 0 AU(s) ] [ 234.31 AU/sec ] [ 4126.9911 kbps ] [  0h  0m  0s ] [ 112 / 0 AU(s) ] [ 234.44 AU/sec ] [ 4127.1699 kbps ] [  0h  0m  0s ] [ 113 / 0 AU(s) ] [ 234.57 AU/sec ] [ 4127.4404 kbps ] [  0h  0m  0s ] [ 114 / 0 AU(s) ] [ 234.69 AU/sec ] [ 4127.6330 kbps ] [  0h  0m  0s ] [ 115 / 0 AU(s) ] [ 234.34 AU/sec ] [ 4127.8448 kbps ] [  0h  0m  0s ] [ 116 / 0 AU(s) ] [ 234.47 AU/sec ] [ 4128.0974 kbps ] [  0h  0m  0s ] [ 117 / 0 AU(s) ] [ 234.59 AU/sec ] [ 4128.3339 kbps ] [  0h  0m  0s ] [ 118 / 0 AU(s) ] [ 234.71 AU/sec ] [ 4128.6118 kbps ] [  0h  0m  0s ] [ 119 / 0 AU(s) ] [ 234.83 AU/sec ] [ 4128.9383 kbps ] [  0h  0m  0s ] [ 120 / 0 AU(s) ] [ 234.50 AU/sec ] [ 4129.3322 kbps ] [  0h  0m  0s ] [ 121 / 0 AU(s) ] [ 234.62 AU/sec ] [ 4129.7016 kbps ] [  0h  0m  0s ] [ 122 / 0 AU(s) ] [ 234.73 AU/sec ] [ 4130.0911 kbps ] [  0h  0m  0s ] [ 123 / 0 AU(s) ] [ 234.40 AU/sec ] [ 4130.4790 kbps ] [  0h  0m  0s ] [ 124 / 0 AU(s) ] [ 234.52 AU/sec ] [ 4130.8512 kbps ] [  0h  0m  0s ] === Summary ====================================================================
+Bitrate                           = 4130.8512 kbps
+Encoded frame count               = 125
+Total encoding time               = 533.000 msec, 0.533 sec
+Average encoding time for a frame = 4.264 msec
+Average encoding speed            = 234.522 frames/sec
+================================================================================
+<end of output>
+Test time =   0.54 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[Encoded frame count               = 125]
+"encode" end time: Jan 09 04:32 UTC
+"encode" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/16 Testing: decode
+4/16 Test: decode
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "out.oapv"
+Directory: /work/build_x86_final
+"decode" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+[ 0 AU(s) ] [ 500.00 AU/sec ] [  0h  0m  0s ] [ 1 AU(s) ] [ 400.00 AU/sec ] [  0h  0m  0s ] [ 2 AU(s) ] [ 500.00 AU/sec ] [  0h  0m  0s ] [ 3 AU(s) ] [ 500.00 AU/sec ] [  0h  0m  0s ] [ 4 AU(s) ] [ 555.56 AU/sec ] [  0h  0m  0s ] [ 5 AU(s) ] [ 600.00 AU/sec ] [  0h  0m  0s ] [ 6 AU(s) ] [ 583.33 AU/sec ] [  0h  0m  0s ] [ 7 AU(s) ] [ 615.38 AU/sec ] [  0h  0m  0s ] [ 8 AU(s) ] [ 642.86 AU/sec ] [  0h  0m  0s ] [ 9 AU(s) ] [ 625.00 AU/sec ] [  0h  0m  0s ] [ 10 AU(s) ] [ 647.06 AU/sec ] [  0h  0m  0s ] [ 11 AU(s) ] [ 666.67 AU/sec ] [  0h  0m  0s ] [ 12 AU(s) ] [ 650.00 AU/sec ] [  0h  0m  0s ] [ 13 AU(s) ] [ 666.67 AU/sec ] [  0h  0m  0s ] [ 14 AU(s) ] [ 652.17 AU/sec ] [  0h  0m  0s ] [ 15 AU(s) ] [ 666.67 AU/sec ] [  0h  0m  0s ] [ 16 AU(s) ] [ 680.00 AU/sec ] [  0h  0m  0s ] [ 17 AU(s) ] [ 666.67 AU/sec ] [  0h  0m  0s ] [ 18 AU(s) ] [ 678.57 AU/sec ] [  0h  0m  0s ] [ 19 AU(s) ] [ 689.66 AU/sec ] [  0h  0m  0s ] [ 20 AU(s) ] [ 677.42 AU/sec ] [  0h  0m  0s ] [ 21 AU(s) ] [ 687.50 AU/sec ] [  0h  0m  0s ] [ 22 AU(s) ] [ 696.97 AU/sec ] [  0h  0m  0s ] [ 23 AU(s) ] [ 685.71 AU/sec ] [  0h  0m  0s ] [ 24 AU(s) ] [ 694.44 AU/sec ] [  0h  0m  0s ] [ 25 AU(s) ] [ 684.21 AU/sec ] [  0h  0m  0s ] [ 26 AU(s) ] [ 692.31 AU/sec ] [  0h  0m  0s ] [ 27 AU(s) ] [ 700.00 AU/sec ] [  0h  0m  0s ] [ 28 AU(s) ] [ 707.32 AU/sec ] [  0h  0m  0s ] [ 29 AU(s) ] [ 697.67 AU/sec ] [  0h  0m  0s ] [ 30 AU(s) ] [ 704.55 AU/sec ] [  0h  0m  0s ] [ 31 AU(s) ] [ 695.65 AU/sec ] [  0h  0m  0s ] [ 32 AU(s) ] [ 702.13 AU/sec ] [  0h  0m  0s ] [ 33 AU(s) ] [ 708.33 AU/sec ] [  0h  0m  0s ] [ 34 AU(s) ] [ 700.00 AU/sec ] [  0h  0m  0s ] [ 35 AU(s) ] [ 705.88 AU/sec ] [  0h  0m  0s ] [ 36 AU(s) ] [ 711.54 AU/sec ] [  0h  0m  0s ] [ 37 AU(s) ] [ 703.70 AU/sec ] [  0h  0m  0s ] [ 38 AU(s) ] [ 709.09 AU/sec ] [  0h  0m  0s ] [ 39 AU(s) ] [ 714.29 AU/sec ] [  0h  0m  0s ] [ 40 AU(s) ] [ 706.90 AU/sec ] [  0h  0m  0s ] [ 41 AU(s) ] [ 711.86 AU/sec ] [  0h  0m  0s ] [ 42 AU(s) ] [ 716.67 AU/sec ] [  0h  0m  0s ] [ 43 AU(s) ] [ 709.68 AU/sec ] [  0h  0m  0s ] [ 44 AU(s) ] [ 714.29 AU/sec ] [  0h  0m  0s ] [ 45 AU(s) ] [ 707.69 AU/sec ] [  0h  0m  0s ] [ 46 AU(s) ] [ 712.12 AU/sec ] [  0h  0m  0s ] [ 47 AU(s) ] [ 716.42 AU/sec ] [  0h  0m  0s ] [ 48 AU(s) ] [ 710.14 AU/sec ] [  0h  0m  0s ] [ 49 AU(s) ] [ 714.29 AU/sec ] [  0h  0m  0s ] [ 50 AU(s) ] [ 718.31 AU/sec ] [  0h  0m  0s ] [ 51 AU(s) ] [ 712.33 AU/sec ] [  0h  0m  0s ] [ 52 AU(s) ] [ 716.22 AU/sec ] [  0h  0m  0s ] [ 53 AU(s) ] [ 720.00 AU/sec ] [  0h  0m  0s ] [ 54 AU(s) ] [ 714.29 AU/sec ] [  0h  0m  0s ] [ 55 AU(s) ] [ 717.95 AU/sec ] [  0h  0m  0s ] [ 56 AU(s) ] [ 721.52 AU/sec ] [  0h  0m  0s ] [ 57 AU(s) ] [ 716.05 AU/sec ] [  0h  0m  0s ] [ 58 AU(s) ] [ 719.51 AU/sec ] [  0h  0m  0s ] [ 59 AU(s) ] [ 722.89 AU/sec ] [  0h  0m  0s ] [ 60 AU(s) ] [ 717.65 AU/sec ] [  0h  0m  0s ] [ 61 AU(s) ] [ 720.93 AU/sec ] [  0h  0m  0s ] [ 62 AU(s) ] [ 724.14 AU/sec ] [  0h  0m  0s ] [ 63 AU(s) ] [ 719.10 AU/sec ] [  0h  0m  0s ] [ 64 AU(s) ] [ 722.22 AU/sec ] [  0h  0m  0s ] [ 65 AU(s) ] [ 725.27 AU/sec ] [  0h  0m  0s ] [ 66 AU(s) ] [ 720.43 AU/sec ] [  0h  0m  0s ] [ 67 AU(s) ] [ 723.40 AU/sec ] [  0h  0m  0s ] [ 68 AU(s) ] [ 726.32 AU/sec ] [  0h  0m  0s ] [ 69 AU(s) ] [ 721.65 AU/sec ] [  0h  0m  0s ] [ 70 AU(s) ] [ 724.49 AU/sec ] [  0h  0m  0s ] [ 71 AU(s) ] [ 727.27 AU/sec ] [  0h  0m  0s ] [ 72 AU(s) ] [ 722.77 AU/sec ] [  0h  0m  0s ] [ 73 AU(s) ] [ 725.49 AU/sec ] [  0h  0m  0s ] [ 74 AU(s) ] [ 728.16 AU/sec ] [  0h  0m  0s ] [ 75 AU(s) ] [ 723.81 AU/sec ] [  0h  0m  0s ] [ 76 AU(s) ] [ 726.42 AU/sec ] [  0h  0m  0s ] [ 77 AU(s) ] [ 722.22 AU/sec ] [  0h  0m  0s ] [ 78 AU(s) ] [ 724.77 AU/sec ] [  0h  0m  0s ] [ 79 AU(s) ] [ 727.27 AU/sec ] [  0h  0m  0s ] [ 80 AU(s) ] [ 723.21 AU/sec ] [  0h  0m  0s ] [ 81 AU(s) ] [ 725.66 AU/sec ] [  0h  0m  0s ] [ 82 AU(s) ] [ 728.07 AU/sec ] [  0h  0m  0s ] [ 83 AU(s) ] [ 724.14 AU/sec ] [  0h  0m  0s ] [ 84 AU(s) ] [ 726.50 AU/sec ] [  0h  0m  0s ] [ 85 AU(s) ] [ 728.81 AU/sec ] [  0h  0m  0s ] [ 86 AU(s) ] [ 725.00 AU/sec ] [  0h  0m  0s ] [ 87 AU(s) ] [ 727.27 AU/sec ] [  0h  0m  0s ] [ 88 AU(s) ] [ 729.51 AU/sec ] [  0h  0m  0s ] [ 89 AU(s) ] [ 725.81 AU/sec ] [  0h  0m  0s ] [ 90 AU(s) ] [ 728.00 AU/sec ] [  0h  0m  0s ] [ 91 AU(s) ] [ 724.41 AU/sec ] [  0h  0m  0s ] [ 92 AU(s) ] [ 726.56 AU/sec ] [  0h  0m  0s ] [ 93 AU(s) ] [ 728.68 AU/sec ] [  0h  0m  0s ] [ 94 AU(s) ] [ 725.19 AU/sec ] [  0h  0m  0s ] [ 95 AU(s) ] [ 727.27 AU/sec ] [  0h  0m  0s ] [ 96 AU(s) ] [ 729.32 AU/sec ] [  0h  0m  0s ] [ 97 AU(s) ] [ 725.93 AU/sec ] [  0h  0m  0s ] [ 98 AU(s) ] [ 727.94 AU/sec ] [  0h  0m  0s ] [ 99 AU(s) ] [ 729.93 AU/sec ] [  0h  0m  0s ] [ 100 AU(s) ] [ 726.62 AU/sec ] [  0h  0m  0s ] [ 101 AU(s) ] [ 728.57 AU/sec ] [  0h  0m  0s ] [ 102 AU(s) ] [ 730.50 AU/sec ] [  0h  0m  0s ] [ 103 AU(s) ] [ 727.27 AU/sec ] [  0h  0m  0s ] [ 104 AU(s) ] [ 729.17 AU/sec ] [  0h  0m  0s ] [ 105 AU(s) ] [ 726.03 AU/sec ] [  0h  0m  0s ] [ 106 AU(s) ] [ 727.89 AU/sec ] [  0h  0m  0s ] [ 107 AU(s) ] [ 729.73 AU/sec ] [  0h  0m  0s ] [ 108 AU(s) ] [ 726.67 AU/sec ] [  0h  0m  0s ] [ 109 AU(s) ] [ 728.48 AU/sec ] [  0h  0m  0s ] [ 110 AU(s) ] [ 730.26 AU/sec ] [  0h  0m  0s ] [ 111 AU(s) ] [ 727.27 AU/sec ] [  0h  0m  0s ] [ 112 AU(s) ] [ 729.03 AU/sec ] [  0h  0m  0s ] [ 113 AU(s) ] [ 730.77 AU/sec ] [  0h  0m  0s ] [ 114 AU(s) ] [ 727.85 AU/sec ] [  0h  0m  0s ] [ 115 AU(s) ] [ 729.56 AU/sec ] [  0h  0m  0s ] [ 116 AU(s) ] [ 726.71 AU/sec ] [  0h  0m  0s ] [ 117 AU(s) ] [ 728.40 AU/sec ] [  0h  0m  0s ] [ 118 AU(s) ] [ 730.06 AU/sec ] [  0h  0m  0s ] [ 119 AU(s) ] [ 727.27 AU/sec ] [  0h  0m  0s ] [ 120 AU(s) ] [ 728.92 AU/sec ] [  0h  0m  0s ] [ 121 AU(s) ] [ 730.54 AU/sec ] [  0h  0m  0s ] [ 122 AU(s) ] [ 727.81 AU/sec ] [  0h  0m  0s ] [ 123 AU(s) ] [ 729.41 AU/sec ] [  0h  0m  0s ] [ 124 AU(s) ] [ 730.99 AU/sec ] [  0h  0m  0s ] ================================================================================
+End of file
+=== Summary ====================================================================
+Processed access units            = 125
+Decoded frame count               = 125
+Total decoding time               = 171 msec, 0.171 sec
+Average decoding time for a frame = 1 msec
+Average decoding speed            = 730.994 frames/sec
+================================================================================
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[Decoded frame count               = 125]
+"decode" end time: Jan 09 04:32 UTC
+"decode" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/16 Testing: decode_qp_A
+5/16 Test: decode_qp_A
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/qp_A.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_qp_A" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/qp_A.apv -v 3 --hash 
+
+================================================================================
+AU 0         3197997-bytes    1-frame(s)         96 msec
+- FRM 0  GID 1     PRIMARY       3197915-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3197997-bytes    1-frame(s)         92 msec
+- FRM 0  GID 1     PRIMARY       3197915-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3198648-bytes    1-frame(s)         91 msec
+- FRM 0  GID 1     PRIMARY       3198566-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 279 msec, 0.279 sec
+Average decoding time for a frame = 93 msec
+Average decoding speed            = 10.753 frames/sec
+================================================================================
+<end of output>
+Test time =   0.42 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_qp_A" end time: Jan 09 04:32 UTC
+"decode_qp_A" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/16 Testing: decode_qp_B
+6/16 Test: decode_qp_B
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/qp_B.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_qp_B" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/qp_B.apv -v 3 --hash 
+
+================================================================================
+AU 0         2885421-bytes    1-frame(s)         96 msec
+- FRM 0  GID 1     PRIMARY       2885339-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         2889559-bytes    1-frame(s)         91 msec
+- FRM 0  GID 1     PRIMARY       2889477-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         2899159-bytes    1-frame(s)         91 msec
+- FRM 0  GID 1     PRIMARY       2899077-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 278 msec, 0.278 sec
+Average decoding time for a frame = 92 msec
+Average decoding speed            = 10.791 frames/sec
+================================================================================
+<end of output>
+Test time =   0.41 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_qp_B" end time: Jan 09 04:32 UTC
+"decode_qp_B" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/16 Testing: decode_qp_C
+7/16 Test: decode_qp_C
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/qp_C.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_qp_C" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/qp_C.apv -v 3 --hash 
+
+================================================================================
+AU 0        14493687-bytes    1-frame(s)        121 msec
+- FRM 0  GID 1     PRIMARY      14493605-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1        14493687-bytes    1-frame(s)        113 msec
+- FRM 0  GID 1     PRIMARY      14493605-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2        14492775-bytes    1-frame(s)        111 msec
+- FRM 0  GID 1     PRIMARY      14492693-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 344 msec, 0.344 sec
+Average decoding time for a frame = 114 msec
+Average decoding speed            = 8.721 frames/sec
+================================================================================
+<end of output>
+Test time =   0.93 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_qp_C" end time: Jan 09 04:32 UTC
+"decode_qp_C" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/16 Testing: decode_qp_D
+8/16 Test: decode_qp_D
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/qp_D.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_qp_D" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/qp_D.apv -v 3 --hash 
+
+================================================================================
+AU 0          614268-bytes    1-frame(s)         89 msec
+- FRM 0  GID 1     PRIMARY        614186-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1          614268-bytes    1-frame(s)         90 msec
+- FRM 0  GID 1     PRIMARY        614186-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2          614220-bytes    1-frame(s)         86 msec
+- FRM 0  GID 1     PRIMARY        614138-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 265 msec, 0.265 sec
+Average decoding time for a frame = 88 msec
+Average decoding speed            = 11.321 frames/sec
+================================================================================
+<end of output>
+Test time =   0.30 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_qp_D" end time: Jan 09 04:32 UTC
+"decode_qp_D" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/16 Testing: decode_qp_E
+9/16 Test: decode_qp_E
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/qp_E.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_qp_E" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/qp_E.apv -v 3 --hash 
+
+================================================================================
+AU 0         3119144-bytes    1-frame(s)         93 msec
+- FRM 0  GID 1     PRIMARY       3119062-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3119144-bytes    1-frame(s)         92 msec
+- FRM 0  GID 1     PRIMARY       3119062-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3119769-bytes    1-frame(s)         93 msec
+- FRM 0  GID 1     PRIMARY       3119687-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 278 msec, 0.278 sec
+Average decoding time for a frame = 92 msec
+Average decoding speed            = 10.791 frames/sec
+================================================================================
+<end of output>
+Test time =   0.42 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_qp_E" end time: Jan 09 04:32 UTC
+"decode_qp_E" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/16 Testing: decode_syn_A
+10/16 Test: decode_syn_A
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/syn_A.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_syn_A" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/syn_A.apv -v 3 --hash 
+
+================================================================================
+AU 0         3206458-bytes    1-frame(s)         30 msec
+- FRM 0  GID 1     PRIMARY       3206376-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+AU 1          601443-bytes    1-frame(s)         24 msec
+- FRM 0  GID 1     PRIMARY        601361-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+AU 2          601443-bytes    1-frame(s)         24 msec
+- FRM 0  GID 1     PRIMARY        601361-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 77 msec, 0.077 sec
+Average decoding time for a frame = 25 msec
+Average decoding speed            = 38.961 frames/sec
+================================================================================
+<end of output>
+Test time =   0.14 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_syn_A" end time: Jan 09 04:32 UTC
+"decode_syn_A" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/16 Testing: decode_syn_B
+11/16 Test: decode_syn_B
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/syn_B.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_syn_B" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/syn_B.apv -v 3 --hash 
+
+================================================================================
+AU 0         2043287-bytes    1-frame(s)         28 msec
+- FRM 0  GID 1     PRIMARY       2043205-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+AU 1         2043287-bytes    1-frame(s)         25 msec
+- FRM 0  GID 1     PRIMARY       2043205-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+AU 2         2043287-bytes    1-frame(s)         25 msec
+- FRM 0  GID 1     PRIMARY       2043205-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 78 msec, 0.078 sec
+Average decoding time for a frame = 26 msec
+Average decoding speed            = 38.462 frames/sec
+================================================================================
+<end of output>
+Test time =   0.17 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_syn_B" end time: Jan 09 04:32 UTC
+"decode_syn_B" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/16 Testing: decode_tile_A
+12/16 Test: decode_tile_A
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/tile_A.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_tile_A" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/tile_A.apv -v 3 --hash 
+
+================================================================================
+AU 0         3109535-bytes    1-frame(s)        323 msec
+- FRM 0  GID 1     PRIMARY       3109453-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3109535-bytes    1-frame(s)        319 msec
+- FRM 0  GID 1     PRIMARY       3109453-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3110194-bytes    1-frame(s)        319 msec
+- FRM 0  GID 1     PRIMARY       3110112-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 961 msec, 0.961 sec
+Average decoding time for a frame = 320 msec
+Average decoding speed            = 3.122 frames/sec
+================================================================================
+<end of output>
+Test time =   1.10 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_tile_A" end time: Jan 09 04:32 UTC
+"decode_tile_A" time elapsed: 00:00:01
+----------------------------------------------------------
+
+13/16 Testing: decode_tile_B
+13/16 Test: decode_tile_B
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/tile_B.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_tile_B" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/tile_B.apv -v 3 --hash 
+
+================================================================================
+AU 0         3119144-bytes    1-frame(s)         93 msec
+- FRM 0  GID 1     PRIMARY       3119062-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3119144-bytes    1-frame(s)         93 msec
+- FRM 0  GID 1     PRIMARY       3119062-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3119769-bytes    1-frame(s)         92 msec
+- FRM 0  GID 1     PRIMARY       3119687-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 279 msec, 0.279 sec
+Average decoding time for a frame = 93 msec
+Average decoding speed            = 10.753 frames/sec
+================================================================================
+<end of output>
+Test time =   0.41 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_tile_B" end time: Jan 09 04:32 UTC
+"decode_tile_B" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/16 Testing: decode_tile_C
+14/16 Test: decode_tile_C
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/tile_C.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_tile_C" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/tile_C.apv -v 3 --hash 
+
+================================================================================
+AU 0         6278681-bytes    1-frame(s)        349 msec
+- FRM 0  GID 1     PRIMARY       6278599-bytes  7680x4320 4:2:2-10  hash:match
+================================================================================
+AU 1         6278681-bytes    1-frame(s)        351 msec
+- FRM 0  GID 1     PRIMARY       6278599-bytes  7680x4320 4:2:2-10  hash:match
+================================================================================
+AU 2         6278181-bytes    1-frame(s)        345 msec
+- FRM 0  GID 1     PRIMARY       6278099-bytes  7680x4320 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 1045 msec, 1.045 sec
+Average decoding time for a frame = 348 msec
+Average decoding speed            = 2.871 frames/sec
+================================================================================
+<end of output>
+Test time =   1.33 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_tile_C" end time: Jan 09 04:32 UTC
+"decode_tile_C" time elapsed: 00:00:01
+----------------------------------------------------------
+
+15/16 Testing: decode_tile_D
+15/16 Test: decode_tile_D
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/tile_D.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_tile_D" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/tile_D.apv -v 3 --hash 
+
+================================================================================
+AU 0         3151784-bytes    1-frame(s)         92 msec
+- FRM 0  GID 1     PRIMARY       3151702-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3151784-bytes    1-frame(s)         92 msec
+- FRM 0  GID 1     PRIMARY       3151702-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3152409-bytes    1-frame(s)         92 msec
+- FRM 0  GID 1     PRIMARY       3152327-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 276 msec, 0.276 sec
+Average decoding time for a frame = 92 msec
+Average decoding speed            = 10.870 frames/sec
+================================================================================
+<end of output>
+Test time =   0.43 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_tile_D" end time: Jan 09 04:32 UTC
+"decode_tile_D" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/16 Testing: decode_tile_E
+16/16 Test: decode_tile_E
+Command: "/work/build_x86_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/tile_E.apv" "-v" "3" "--hash"
+Directory: /work/build_x86_final
+"decode_tile_E" start time: Jan 09 04:32 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_x86_final/bin/oapv_app_dec -i /work/test/bitstream/tile_E.apv -v 3 --hash 
+
+================================================================================
+AU 0         3120164-bytes    1-frame(s)         91 msec
+- FRM 0  GID 1     PRIMARY       3120082-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3120164-bytes    1-frame(s)         93 msec
+- FRM 0  GID 1     PRIMARY       3120082-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3120789-bytes    1-frame(s)         92 msec
+- FRM 0  GID 1     PRIMARY       3120707-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 276 msec, 0.276 sec
+Average decoding time for a frame = 92 msec
+Average decoding speed            = 10.870 frames/sec
+================================================================================
+<end of output>
+Test time =   0.41 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_tile_E" end time: Jan 09 04:32 UTC
+"decode_tile_E" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jan 09 04:32 UTC

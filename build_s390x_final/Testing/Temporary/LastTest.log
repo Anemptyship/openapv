@@ -1,0 +1,775 @@
+Start testing: Jan 09 04:36 UTC
+----------------------------------------------------------
+1/16 Testing: Encoder_runs
+1/16 Test: Encoder_runs
+Command: "/work/build_s390x_final/bin/oapv_app_enc"
+Directory: /work/build_s390x_final
+"Encoder_runs" start time: Jan 09 04:36 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Encoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Syntax: 
+  /work/build_s390x_final/bin/oapv_app_enc -i 'input-file' [ options ] 
+
+Options:
+  --help
+    : list options
+  -v, --verbose [INTEGER] (optional) [2]
+    : verbose (log) level
+      - 0: no message
+      - 1: only error message
+      - 2: simple messages
+      - 3: frame-level messages
+  -i, --input [STRING]
+    : file name of input video
+  -o, --output [STRING] (optional) [None]
+    : file name of output bitstream
+  -r, --recon [STRING] (optional) [None]
+    : file name of reconstructed video
+  -w, --width [STRING] (optional) [None]
+    : pixel width of input video
+  -h, --height [STRING] (optional) [None]
+    : pixel height of input video
+  -q, --qp [STRING] (optional) [auto]
+    : QP value: 0 ~ (63 + (bitdepth - 10)*6) 
+      - 10bit input: 0 ~ 63
+      - 12bit input: 0 ~ 75
+      - 'auto' means that the value is internally determined
+  -z, --fps [STRING] (optional) [None]
+    : frame rate (frames per second)
+  -m, --threads [STRING] (optional) [auto]
+    : force use of a specific number of threads
+      - 'auto' means that the value is internally determined
+  --preset [STRING] (optional) [None]
+    : encoder preset [fastest, fast, medium, slow, placebo]
+  -d, --input-depth [INTEGER] (optional) [10]
+    : input bit depth (8, 10-12)
+      - Note: 8bit input will be converted to 10bit
+  --input-csp [INTEGER] (optional) [-1]
+    : input color space (chroma format)
+      - 0: 400
+      - 2: 422
+      - 3: 444
+      - 4: 4444
+      - 5: P2(Planar Y, Combined CbCr, 422)
+  --family [STRING] (optional) [None]
+    : family name for bitrate setting
+      - 422-LQ: YCbCr422 low quality
+      - 422-SQ: YCbCr422 standard quality
+      - 422-HQ: YCbCr422 high quality
+      - 444-UQ: YCbCr444 ultra quality
+      Note: 'family' and 'bitrate' value cannot be set together.
+            The family and profile arguments should be set with the same
+            color space, if they coexists.
+  --profile [STRING] (optional) [422-10]
+    : profile string
+      - 422-10: YCbCr422 10bit (default)
+      - 422-12; YCbCr422 12bit
+      - 444-10: YCbCr444 10bit
+      - 444-12; YCbCr444 12bit
+      - 4444-10: YCbCr4444 10bit
+      - 4444-12; YCbCr4444 12bit
+      - 400-10: YCbCr400 (monochrome) 10bit
+      Note: Color space and bit depth of input video will be converted
+            automatically to support the given profile, if needs
+            The family and profile arguments should be set with the same
+            color space, if they coexists.
+  --level [STRING] (optional) [auto]
+    : level setting (1, 1.1, 2, 2.1, 3, 3.1, 4, 4.1, 5, 5.1, 6, 6.1, 7, 7.1)
+      - 'auto' means that the value is internally determined
+  --band [STRING] (optional) [auto]
+    : band setting (0, 1, 2, 3)
+      - 'auto' means that the value is internally determined
+  --max-au [INTEGER] (optional) [0]
+    : maximum number of access units to be encoded
+  --seek [INTEGER] (optional) [0]
+    : number of skipped access units before encoding
+  --qp-offset-c1 [STRING] (optional) [None]
+    : QP offset value for Component 1 (Cb)
+  --qp-offset-c2 [STRING] (optional) [None]
+    : QP offset value for Component 2 (Cr)
+  --qp-offset-c3 [STRING] (optional) [None]
+    : QP offset value for Component 3
+  --tile-w [STRING] (optional) [None]
+    : width of tile in units of pixels
+  --tile-h [STRING] (optional) [None]
+    : height of tile in units of pixels
+  --bitrate [STRING] (optional) [None]
+    : enable ABR rate control
+      bitrate in terms of kbits per second: Kbps(none,K,k), Mbps(M,m)
+      ex) 100 = 100K = 0.1M
+  --q-matrix-c0 [STRING] (optional) [None]
+    : custom quantization matrix for component 0 (Y) "q1 q2 ... q63 q64"
+  --q-matrix-c1 [STRING] (optional) [None]
+    : custom quantization matrix for component 1 (Cb) "q1 q2 ... q63 q64"
+  --q-matrix-c2 [STRING] (optional) [None]
+    : custom quantization matrix for component 2 (Cr) "q1 q2 ... q63 q64"
+  --q-matrix-c3 [STRING] (optional) [None]
+    : custom quantization matrix for component 3 "q1 q2 ... q63 q64"
+  --color-primaries [INTEGER] (optional) [-1]
+    : ColourPrimaries value defined in ITU-T H.273
+      - 1: bt709
+      - 2: unspecified
+      - 3: reserved
+      - 4: bt470m
+      - 5: bt470bg
+      - 6: smpte170m
+      - 7: smpte240m
+      - 8: film
+      - 9: bt2020
+      - 10: smpte4280
+      - 11: smpte4311
+      - 12: smpte4322
+      Note: This value should be set along with all other color aspects.
+            i.e. 'color-primaries', 'color-transfer', 'color-matrix', 
+            and 'color-range' should all be set.
+  --color-transfer [INTEGER] (optional) [-1]
+    : TransferCharacteristics value defined in ITU-T H.273
+      - 1: bt709
+      - 2: unspecified
+      - 4: bt470m
+      - 5: bt470bg
+      - 6: smpte170m
+      - 7: smpte240m
+      - 8: linear
+      - 9: log100
+      - 10: log316
+      - 11: iec61966-2-4
+      - 12: bt1361e
+      - 13: iec61966-2-1
+      - 14: bt2020-10
+      - 15: bt2020-12
+      - 16: smpte2084
+      - 17: smpte428
+      - 18: hybrid log-gamma (HLG), arib-std-b67
+      Note: This value should be set along with all other color aspects.
+            i.e. 'color-primaries', 'color-transfer', 'color-matrix', 
+            and 'color-range' should all be set.
+  --color-matrix [INTEGER] (optional) [-1]
+    : MatrixCoefficients value defined in ITU-T H.273
+      - 0: gbr
+      - 1: bt709
+      - 2: unspecified
+      - 4: fcc
+      - 5: bt470bg
+      - 6: smpte170m
+      - 7: smpte240m
+      - 8: ycgco
+      - 9: bt2020nc
+      - 10: bt2020c
+      - 11: smpte2085
+      - 12: chroma-derived-nc
+      - 13: chroma-derived-c
+      - 14: ictcp
+      Note: This value should be set along with all other color aspects.
+            i.e. 'color-primaries', 'color-transfer', 'color-matrix', 
+            and 'color-range' should all be set.
+  --color-range [INTEGER] (optional) [-1]
+    : Color range
+      - 0: limited color range ('tv' color range) 
+      - 1: full color range ('pc' color range)
+      Note: This value should be set along with all other color aspects.
+            i.e. 'color-primaries', 'color-transfer', 'color-matrix', 
+            and 'color-range' should all be set.
+  --hash [FLAG] (optional) [Off]
+    : embed frame hash value for conformance checking in decoding
+  --master-display [STRING] (optional) [None]
+    : mastering display color volume metadata
+  --max-cll [STRING] (optional) [None]
+    : content light level information metadata
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"Encoder_runs" end time: Jan 09 04:36 UTC
+"Encoder_runs" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/16 Testing: Decoder_runs
+2/16 Test: Decoder_runs
+Command: "/work/build_s390x_final/bin/oapv_app_dec"
+Directory: /work/build_s390x_final
+"Decoder_runs" start time: Jan 09 04:36 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Syntax: 
+  /work/build_s390x_final/bin/oapv_app_dec -i 'input-file' [ options ] 
+
+Options:
+  --help
+    : list options
+  -v, --verbose [INTEGER] (optional) [2]
+    : verbose (log) level
+      - 0: no message
+      - 1: only error message
+      - 2: simple messages
+      - 3: frame-level messages
+  -i, --input [STRING]
+    : file name of input bitstream
+  -o, --output [STRING] (optional) [None]
+    : file name of decoded output
+  --max-au [INTEGER] (optional) [0]
+    : maximum number of access units to be decoded
+  -m, --threads [STRING] (optional) [auto]
+    : force use of a specific number of threads
+      - 'auto' means that the value is internally determined
+  -d, --output-depth [INTEGER] (optional) [0]
+    : output bit depth (8, 10, 12) 
+  --hash [FLAG] (optional) [Off]
+    : parse frame hash value for conformance checking in decoding
+  --output-csp [INTEGER] (optional) [0]
+    : output color space (chroma format)
+      - 0: coded CSP
+      - 1: convert to P210 in case of YCbCr422
+
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"Decoder_runs" end time: Jan 09 04:36 UTC
+"Decoder_runs" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/16 Testing: encode
+3/16 Test: encode
+Command: "/work/build_s390x_final/bin/oapv_app_enc" "-i" "/work/test/sequence/pattern1_yuv422p10le_320x240_25fps.y4m" "-w" "320" "-h" "240" "-z" "25" "-o" "out.oapv"
+Directory: /work/build_s390x_final
+"encode" start time: Jan 09 04:36 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Encoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+[ 0 / 0 AU(s) ] [ 10.31 AU/sec ] [ 2925.2000 kbps ] [  0h  0m  0s ] [ 1 / 0 AU(s) ] [ 10.70 AU/sec ] [ 2969.7000 kbps ] [  0h  0m  0s ] [ 2 / 0 AU(s) ] [ 10.91 AU/sec ] [ 3018.1333 kbps ] [  0h  0m  0s ] [ 3 / 0 AU(s) ] [ 10.96 AU/sec ] [ 3075.5500 kbps ] [  0h  0m  0s ] [ 4 / 0 AU(s) ] [ 10.99 AU/sec ] [ 3122.4400 kbps ] [  0h  0m  0s ] [ 5 / 0 AU(s) ] [ 11.01 AU/sec ] [ 3172.1667 kbps ] [  0h  0m  0s ] [ 6 / 0 AU(s) ] [ 11.04 AU/sec ] [ 3217.8000 kbps ] [  0h  0m  0s ] [ 7 / 0 AU(s) ] [ 11.07 AU/sec ] [ 3270.9250 kbps ] [  0h  0m  0s ] [ 8 / 0 AU(s) ] [ 11.10 AU/sec ] [ 3327.2000 kbps ] [  0h  0m  0s ] [ 9 / 0 AU(s) ] [ 11.12 AU/sec ] [ 3379.4800 kbps ] [  0h  0m  0s ] [ 10 / 0 AU(s) ] [ 11.14 AU/sec ] [ 3425.2727 kbps ] [  0h  0m  0s ] [ 11 / 0 AU(s) ] [ 11.15 AU/sec ] [ 3471.7500 kbps ] [  0h  0m  1s ] [ 12 / 0 AU(s) ] [ 11.12 AU/sec ] [ 3524.0154 kbps ] [  0h  0m  1s ] [ 13 / 0 AU(s) ] [ 11.12 AU/sec ] [ 3575.0571 kbps ] [  0h  0m  1s ] [ 14 / 0 AU(s) ] [ 11.12 AU/sec ] [ 3624.0533 kbps ] [  0h  0m  1s ] [ 15 / 0 AU(s) ] [ 11.14 AU/sec ] [ 3673.2500 kbps ] [  0h  0m  1s ] [ 16 / 0 AU(s) ] [ 11.15 AU/sec ] [ 3719.7882 kbps ] [  0h  0m  1s ] [ 17 / 0 AU(s) ] [ 11.16 AU/sec ] [ 3769.9444 kbps ] [  0h  0m  1s ] [ 18 / 0 AU(s) ] [ 11.17 AU/sec ] [ 3815.6316 kbps ] [  0h  0m  1s ] [ 19 / 0 AU(s) ] [ 11.17 AU/sec ] [ 3862.9000 kbps ] [  0h  0m  1s ] [ 20 / 0 AU(s) ] [ 11.16 AU/sec ] [ 3910.1810 kbps ] [  0h  0m  1s ] [ 21 / 0 AU(s) ] [ 11.16 AU/sec ] [ 3957.5455 kbps ] [  0h  0m  1s ] [ 22 / 0 AU(s) ] [ 11.15 AU/sec ] [ 4006.1652 kbps ] [  0h  0m  2s ] [ 23 / 0 AU(s) ] [ 11.15 AU/sec ] [ 4054.8583 kbps ] [  0h  0m  2s ] [ 24 / 0 AU(s) ] [ 11.15 AU/sec ] [ 4106.4880 kbps ] [  0h  0m  2s ] [ 25 / 0 AU(s) ] [ 11.15 AU/sec ] [ 4153.7462 kbps ] [  0h  0m  2s ] [ 26 / 0 AU(s) ] [ 11.14 AU/sec ] [ 4203.0741 kbps ] [  0h  0m  2s ] [ 27 / 0 AU(s) ] [ 11.14 AU/sec ] [ 4250.8571 kbps ] [  0h  0m  2s ] [ 28 / 0 AU(s) ] [ 11.14 AU/sec ] [ 4300.5379 kbps ] [  0h  0m  2s ] [ 29 / 0 AU(s) ] [ 11.14 AU/sec ] [ 4351.5867 kbps ] [  0h  0m  2s ] [ 30 / 0 AU(s) ] [ 11.12 AU/sec ] [ 4402.6065 kbps ] [  0h  0m  2s ] [ 31 / 0 AU(s) ] [ 11.12 AU/sec ] [ 4454.5938 kbps ] [  0h  0m  2s ] [ 32 / 0 AU(s) ] [ 11.11 AU/sec ] [ 4509.5939 kbps ] [  0h  0m  2s ] [ 33 / 0 AU(s) ] [ 11.10 AU/sec ] [ 4561.4706 kbps ] [  0h  0m  3s ] [ 34 / 0 AU(s) ] [ 11.09 AU/sec ] [ 4617.1200 kbps ] [  0h  0m  3s ] [ 35 / 0 AU(s) ] [ 11.08 AU/sec ] [ 4671.5611 kbps ] [  0h  0m  3s ] [ 36 / 0 AU(s) ] [ 11.06 AU/sec ] [ 4727.6270 kbps ] [  0h  0m  3s ] [ 37 / 0 AU(s) ] [ 11.05 AU/sec ] [ 4783.5158 kbps ] [  0h  0m  3s ] [ 38 / 0 AU(s) ] [ 11.04 AU/sec ] [ 4840.5026 kbps ] [  0h  0m  3s ] [ 39 / 0 AU(s) ] [ 11.03 AU/sec ] [ 4899.7350 kbps ] [  0h  0m  3s ] [ 40 / 0 AU(s) ] [ 11.02 AU/sec ] [ 4958.4780 kbps ] [  0h  0m  3s ] [ 41 / 0 AU(s) ] [ 11.01 AU/sec ] [ 5014.2952 kbps ] [  0h  0m  3s ] [ 42 / 0 AU(s) ] [ 10.99 AU/sec ] [ 5069.6930 kbps ] [  0h  0m  3s ] [ 43 / 0 AU(s) ] [ 10.98 AU/sec ] [ 5123.0364 kbps ] [  0h  0m  4s ] [ 44 / 0 AU(s) ] [ 10.96 AU/sec ] [ 5175.2800 kbps ] [  0h  0m  4s ] [ 45 / 0 AU(s) ] [ 10.95 AU/sec ] [ 5224.9043 kbps ] [  0h  0m  4s ] [ 46 / 0 AU(s) ] [ 10.95 AU/sec ] [ 5272.9830 kbps ] [  0h  0m  4s ] [ 47 / 0 AU(s) ] [ 10.94 AU/sec ] [ 5318.8792 kbps ] [  0h  0m  4s ] [ 48 / 0 AU(s) ] [ 10.93 AU/sec ] [ 5362.9143 kbps ] [  0h  0m  4s ] [ 49 / 0 AU(s) ] [ 10.92 AU/sec ] [ 5404.4840 kbps ] [  0h  0m  4s ] [ 50 / 0 AU(s) ] [ 10.91 AU/sec ] [ 5446.3176 kbps ] [  0h  0m  4s ] [ 51 / 0 AU(s) ] [ 10.90 AU/sec ] [ 5486.7308 kbps ] [  0h  0m  4s ] [ 52 / 0 AU(s) ] [ 10.90 AU/sec ] [ 5524.6566 kbps ] [  0h  0m  4s ] [ 53 / 0 AU(s) ] [ 10.89 AU/sec ] [ 5561.0333 kbps ] [  0h  0m  4s ] [ 54 / 0 AU(s) ] [ 10.88 AU/sec ] [ 5595.9745 kbps ] [  0h  0m  5s ] [ 55 / 0 AU(s) ] [ 10.88 AU/sec ] [ 5630.2107 kbps ] [  0h  0m  5s ] [ 56 / 0 AU(s) ] [ 10.87 AU/sec ] [ 5663.3018 kbps ] [  0h  0m  5s ] [ 57 / 0 AU(s) ] [ 10.87 AU/sec ] [ 5695.5000 kbps ] [  0h  0m  5s ] [ 58 / 0 AU(s) ] [ 10.86 AU/sec ] [ 5725.7729 kbps ] [  0h  0m  5s ] [ 59 / 0 AU(s) ] [ 10.86 AU/sec ] [ 5755.4600 kbps ] [  0h  0m  5s ] [ 60 / 0 AU(s) ] [ 10.85 AU/sec ] [ 5784.4623 kbps ] [  0h  0m  5s ] [ 61 / 0 AU(s) ] [ 10.85 AU/sec ] [ 5810.9613 kbps ] [  0h  0m  5s ] [ 62 / 0 AU(s) ] [ 10.84 AU/sec ] [ 5838.6571 kbps ] [  0h  0m  5s ] [ 63 / 0 AU(s) ] [ 10.83 AU/sec ] [ 5864.8406 kbps ] [  0h  0m  5s ] [ 64 / 0 AU(s) ] [ 10.82 AU/sec ] [ 5890.6246 kbps ] [  0h  0m  6s ] [ 65 / 0 AU(s) ] [ 10.82 AU/sec ] [ 5916.4909 kbps ] [  0h  0m  6s ] [ 66 / 0 AU(s) ] [ 10.80 AU/sec ] [ 5940.8687 kbps ] [  0h  0m  6s ] [ 67 / 0 AU(s) ] [ 10.80 AU/sec ] [ 5964.1147 kbps ] [  0h  0m  6s ] [ 68 / 0 AU(s) ] [ 10.79 AU/sec ] [ 5986.6174 kbps ] [  0h  0m  6s ] [ 69 / 0 AU(s) ] [ 10.79 AU/sec ] [ 6007.5771 kbps ] [  0h  0m  6s ] [ 70 / 0 AU(s) ] [ 10.78 AU/sec ] [ 6029.3324 kbps ] [  0h  0m  6s ] [ 71 / 0 AU(s) ] [ 10.78 AU/sec ] [ 6050.5361 kbps ] [  0h  0m  6s ] [ 72 / 0 AU(s) ] [ 10.77 AU/sec ] [ 6069.7918 kbps ] [  0h  0m  6s ] [ 73 / 0 AU(s) ] [ 10.77 AU/sec ] [ 6089.9784 kbps ] [  0h  0m  6s ] [ 74 / 0 AU(s) ] [ 10.77 AU/sec ] [ 6109.2293 kbps ] [  0h  0m  6s ] [ 75 / 0 AU(s) ] [ 10.76 AU/sec ] [ 6127.4868 kbps ] [  0h  0m  7s ] [ 76 / 0 AU(s) ] [ 10.76 AU/sec ] [ 6145.4519 kbps ] [  0h  0m  7s ] [ 77 / 0 AU(s) ] [ 10.75 AU/sec ] [ 6163.0385 kbps ] [  0h  0m  7s ] [ 78 / 0 AU(s) ] [ 10.75 AU/sec ] [ 6180.7747 kbps ] [  0h  0m  7s ] [ 79 / 0 AU(s) ] [ 10.75 AU/sec ] [ 6197.5475 kbps ] [  0h  0m  7s ] [ 80 / 0 AU(s) ] [ 10.74 AU/sec ] [ 6213.9333 kbps ] [  0h  0m  7s ] [ 81 / 0 AU(s) ] [ 10.74 AU/sec ] [ 6230.1683 kbps ] [  0h  0m  7s ] [ 82 / 0 AU(s) ] [ 10.74 AU/sec ] [ 6245.6723 kbps ] [  0h  0m  7s ] [ 83 / 0 AU(s) ] [ 10.74 AU/sec ] [ 6261.2310 kbps ] [  0h  0m  7s ] [ 84 / 0 AU(s) ] [ 10.73 AU/sec ] [ 6276.0871 kbps ] [  0h  0m  7s ] [ 85 / 0 AU(s) ] [ 10.72 AU/sec ] [ 6290.9326 kbps ] [  0h  0m  8s ] [ 86 / 0 AU(s) ] [ 10.72 AU/sec ] [ 6305.1333 kbps ] [  0h  0m  8s ] [ 87 / 0 AU(s) ] [ 10.72 AU/sec ] [ 6319.3568 kbps ] [  0h  0m  8s ] [ 88 / 0 AU(s) ] [ 10.71 AU/sec ] [ 6332.6270 kbps ] [  0h  0m  8s ] [ 89 / 0 AU(s) ] [ 10.71 AU/sec ] [ 6345.6289 kbps ] [  0h  0m  8s ] [ 90 / 0 AU(s) ] [ 10.71 AU/sec ] [ 6357.9604 kbps ] [  0h  0m  8s ] [ 91 / 0 AU(s) ] [ 10.71 AU/sec ] [ 6370.8239 kbps ] [  0h  0m  8s ] [ 92 / 0 AU(s) ] [ 10.70 AU/sec ] [ 6382.9161 kbps ] [  0h  0m  8s ] [ 93 / 0 AU(s) ] [ 10.70 AU/sec ] [ 6395.4723 kbps ] [  0h  0m  8s ] [ 94 / 0 AU(s) ] [ 10.70 AU/sec ] [ 6406.9389 kbps ] [  0h  0m  8s ] [ 95 / 0 AU(s) ] [ 10.70 AU/sec ] [ 6419.0396 kbps ] [  0h  0m  8s ] [ 96 / 0 AU(s) ] [ 10.70 AU/sec ] [ 6430.6515 kbps ] [  0h  0m  9s ] [ 97 / 0 AU(s) ] [ 10.69 AU/sec ] [ 6441.7449 kbps ] [  0h  0m  9s ] [ 98 / 0 AU(s) ] [ 10.69 AU/sec ] [ 6452.8465 kbps ] [  0h  0m  9s ] [ 99 / 0 AU(s) ] [ 10.68 AU/sec ] [ 6463.9520 kbps ] [  0h  0m  9s ] [ 100 / 0 AU(s) ] [ 10.68 AU/sec ] [ 6474.0376 kbps ] [  0h  0m  9s ] [ 101 / 0 AU(s) ] [ 10.68 AU/sec ] [ 6484.0902 kbps ] [  0h  0m  9s ] [ 102 / 0 AU(s) ] [ 10.67 AU/sec ] [ 6493.5825 kbps ] [  0h  0m  9s ] [ 103 / 0 AU(s) ] [ 10.67 AU/sec ] [ 6503.5000 kbps ] [  0h  0m  9s ] [ 104 / 0 AU(s) ] [ 10.67 AU/sec ] [ 6513.0476 kbps ] [  0h  0m  9s ] [ 105 / 0 AU(s) ] [ 10.67 AU/sec ] [ 6522.0943 kbps ] [  0h  0m  9s ] [ 106 / 0 AU(s) ] [ 10.66 AU/sec ] [ 6530.7850 kbps ] [  0h  0m 10s ] [ 107 / 0 AU(s) ] [ 10.66 AU/sec ] [ 6540.0019 kbps ] [  0h  0m 10s ] [ 108 / 0 AU(s) ] [ 10.66 AU/sec ] [ 6548.4697 kbps ] [  0h  0m 10s ] [ 109 / 0 AU(s) ] [ 10.66 AU/sec ] [ 6557.3545 kbps ] [  0h  0m 10s ] [ 110 / 0 AU(s) ] [ 10.65 AU/sec ] [ 6565.5081 kbps ] [  0h  0m 10s ] [ 111 / 0 AU(s) ] [ 10.65 AU/sec ] [ 6573.4554 kbps ] [  0h  0m 10s ] [ 112 / 0 AU(s) ] [ 10.65 AU/sec ] [ 6581.2814 kbps ] [  0h  0m 10s ] [ 113 / 0 AU(s) ] [ 10.65 AU/sec ] [ 6589.0632 kbps ] [  0h  0m 10s ] [ 114 / 0 AU(s) ] [ 10.65 AU/sec ] [ 6597.1722 kbps ] [  0h  0m 10s ] [ 115 / 0 AU(s) ] [ 10.65 AU/sec ] [ 6604.7500 kbps ] [  0h  0m 10s ] [ 116 / 0 AU(s) ] [ 10.65 AU/sec ] [ 6612.2085 kbps ] [  0h  0m 10s ] [ 117 / 0 AU(s) ] [ 10.64 AU/sec ] [ 6620.4000 kbps ] [  0h  0m 11s ] [ 118 / 0 AU(s) ] [ 10.64 AU/sec ] [ 6627.7697 kbps ] [  0h  0m 11s ] [ 119 / 0 AU(s) ] [ 10.63 AU/sec ] [ 6635.3083 kbps ] [  0h  0m 11s ] [ 120 / 0 AU(s) ] [ 10.63 AU/sec ] [ 6642.7223 kbps ] [  0h  0m 11s ] [ 121 / 0 AU(s) ] [ 10.63 AU/sec ] [ 6650.0082 kbps ] [  0h  0m 11s ] [ 122 / 0 AU(s) ] [ 10.63 AU/sec ] [ 6657.1447 kbps ] [  0h  0m 11s ] [ 123 / 0 AU(s) ] [ 10.63 AU/sec ] [ 6664.2742 kbps ] [  0h  0m 11s ] [ 124 / 0 AU(s) ] [ 10.63 AU/sec ] [ 6671.0880 kbps ] [  0h  0m 11s ] === Summary ====================================================================
+Bitrate                           = 6671.0880 kbps
+Encoded frame count               = 125
+Total encoding time               = 11761.000 msec, 11.761 sec
+Average encoding time for a frame = 94.088 msec
+Average encoding speed            = 10.628 frames/sec
+================================================================================
+<end of output>
+Test time =  11.84 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[Encoded frame count               = 125]
+"encode" end time: Jan 09 04:36 UTC
+"encode" time elapsed: 00:00:11
+----------------------------------------------------------
+
+4/16 Testing: decode
+4/16 Test: decode
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "out.oapv"
+Directory: /work/build_s390x_final
+"decode" start time: Jan 09 04:36 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+[ 0 AU(s) ] [ 31.25 AU/sec ] [  0h  0m  0s ] [ 1 AU(s) ] [ 36.36 AU/sec ] [  0h  0m  0s ] [ 2 AU(s) ] [ 38.96 AU/sec ] [  0h  0m  0s ] [ 3 AU(s) ] [ 40.40 AU/sec ] [  0h  0m  0s ] [ 4 AU(s) ] [ 40.98 AU/sec ] [  0h  0m  0s ] [ 5 AU(s) ] [ 41.38 AU/sec ] [  0h  0m  0s ] [ 6 AU(s) ] [ 41.67 AU/sec ] [  0h  0m  0s ] [ 7 AU(s) ] [ 41.67 AU/sec ] [  0h  0m  0s ] [ 8 AU(s) ] [ 41.67 AU/sec ] [  0h  0m  0s ] [ 9 AU(s) ] [ 42.02 AU/sec ] [  0h  0m  0s ] [ 10 AU(s) ] [ 42.15 AU/sec ] [  0h  0m  0s ] [ 11 AU(s) ] [ 42.25 AU/sec ] [  0h  0m  0s ] [ 12 AU(s) ] [ 42.35 AU/sec ] [  0h  0m  0s ] [ 13 AU(s) ] [ 42.42 AU/sec ] [  0h  0m  0s ] [ 14 AU(s) ] [ 42.61 AU/sec ] [  0h  0m  0s ] [ 15 AU(s) ] [ 42.67 AU/sec ] [  0h  0m  0s ] [ 16 AU(s) ] [ 42.71 AU/sec ] [  0h  0m  0s ] [ 17 AU(s) ] [ 42.76 AU/sec ] [  0h  0m  0s ] [ 18 AU(s) ] [ 42.70 AU/sec ] [  0h  0m  0s ] [ 19 AU(s) ] [ 42.83 AU/sec ] [  0h  0m  0s ] [ 20 AU(s) ] [ 42.86 AU/sec ] [  0h  0m  0s ] [ 21 AU(s) ] [ 42.88 AU/sec ] [  0h  0m  0s ] [ 22 AU(s) ] [ 42.91 AU/sec ] [  0h  0m  0s ] [ 23 AU(s) ] [ 42.93 AU/sec ] [  0h  0m  0s ] [ 24 AU(s) ] [ 42.96 AU/sec ] [  0h  0m  0s ] [ 25 AU(s) ] [ 42.98 AU/sec ] [  0h  0m  0s ] [ 26 AU(s) ] [ 42.93 AU/sec ] [  0h  0m  0s ] [ 27 AU(s) ] [ 42.94 AU/sec ] [  0h  0m  0s ] [ 28 AU(s) ] [ 42.96 AU/sec ] [  0h  0m  0s ] [ 29 AU(s) ] [ 42.98 AU/sec ] [  0h  0m  0s ] [ 30 AU(s) ] [ 43.00 AU/sec ] [  0h  0m  0s ] [ 31 AU(s) ] [ 43.01 AU/sec ] [  0h  0m  0s ] [ 32 AU(s) ] [ 42.97 AU/sec ] [  0h  0m  0s ] [ 33 AU(s) ] [ 42.98 AU/sec ] [  0h  0m  0s ] [ 34 AU(s) ] [ 43.00 AU/sec ] [  0h  0m  0s ] [ 35 AU(s) ] [ 42.96 AU/sec ] [  0h  0m  0s ] [ 36 AU(s) ] [ 42.97 AU/sec ] [  0h  0m  0s ] [ 37 AU(s) ] [ 42.94 AU/sec ] [  0h  0m  0s ] [ 38 AU(s) ] [ 42.95 AU/sec ] [  0h  0m  0s ] [ 39 AU(s) ] [ 42.92 AU/sec ] [  0h  0m  0s ] [ 40 AU(s) ] [ 42.89 AU/sec ] [  0h  0m  0s ] [ 41 AU(s) ] [ 42.81 AU/sec ] [  0h  0m  0s ] [ 42 AU(s) ] [ 42.70 AU/sec ] [  0h  0m  1s ] [ 43 AU(s) ] [ 42.64 AU/sec ] [  0h  0m  1s ] [ 44 AU(s) ] [ 42.57 AU/sec ] [  0h  0m  1s ] [ 45 AU(s) ] [ 42.51 AU/sec ] [  0h  0m  1s ] [ 46 AU(s) ] [ 42.50 AU/sec ] [  0h  0m  1s ] [ 47 AU(s) ] [ 42.44 AU/sec ] [  0h  0m  1s ] [ 48 AU(s) ] [ 42.39 AU/sec ] [  0h  0m  1s ] [ 49 AU(s) ] [ 42.37 AU/sec ] [  0h  0m  1s ] [ 50 AU(s) ] [ 42.32 AU/sec ] [  0h  0m  1s ] [ 51 AU(s) ] [ 42.28 AU/sec ] [  0h  0m  1s ] [ 52 AU(s) ] [ 42.23 AU/sec ] [  0h  0m  1s ] [ 53 AU(s) ] [ 42.22 AU/sec ] [  0h  0m  1s ] [ 54 AU(s) ] [ 42.21 AU/sec ] [  0h  0m  1s ] [ 55 AU(s) ] [ 42.20 AU/sec ] [  0h  0m  1s ] [ 56 AU(s) ] [ 42.19 AU/sec ] [  0h  0m  1s ] [ 57 AU(s) ] [ 42.18 AU/sec ] [  0h  0m  1s ] [ 58 AU(s) ] [ 42.20 AU/sec ] [  0h  0m  1s ] [ 59 AU(s) ] [ 42.19 AU/sec ] [  0h  0m  1s ] [ 60 AU(s) ] [ 42.19 AU/sec ] [  0h  0m  1s ] [ 61 AU(s) ] [ 42.21 AU/sec ] [  0h  0m  1s ] [ 62 AU(s) ] [ 42.20 AU/sec ] [  0h  0m  1s ] [ 63 AU(s) ] [ 42.19 AU/sec ] [  0h  0m  1s ] [ 64 AU(s) ] [ 42.21 AU/sec ] [  0h  0m  1s ] [ 65 AU(s) ] [ 42.20 AU/sec ] [  0h  0m  1s ] [ 66 AU(s) ] [ 42.22 AU/sec ] [  0h  0m  1s ] [ 67 AU(s) ] [ 42.21 AU/sec ] [  0h  0m  1s ] [ 68 AU(s) ] [ 42.20 AU/sec ] [  0h  0m  1s ] [ 69 AU(s) ] [ 42.22 AU/sec ] [  0h  0m  1s ] [ 70 AU(s) ] [ 42.21 AU/sec ] [  0h  0m  1s ] [ 71 AU(s) ] [ 42.20 AU/sec ] [  0h  0m  1s ] [ 72 AU(s) ] [ 42.22 AU/sec ] [  0h  0m  1s ] [ 73 AU(s) ] [ 42.21 AU/sec ] [  0h  0m  1s ] [ 74 AU(s) ] [ 42.21 AU/sec ] [  0h  0m  1s ] [ 75 AU(s) ] [ 42.20 AU/sec ] [  0h  0m  1s ] [ 76 AU(s) ] [ 42.17 AU/sec ] [  0h  0m  1s ] [ 77 AU(s) ] [ 42.12 AU/sec ] [  0h  0m  1s ] [ 78 AU(s) ] [ 42.07 AU/sec ] [  0h  0m  1s ] [ 79 AU(s) ] [ 42.06 AU/sec ] [  0h  0m  1s ] [ 80 AU(s) ] [ 42.06 AU/sec ] [  0h  0m  1s ] [ 81 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  1s ] [ 82 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  1s ] [ 83 AU(s) ] [ 42.04 AU/sec ] [  0h  0m  1s ] [ 84 AU(s) ] [ 42.06 AU/sec ] [  0h  0m  2s ] [ 85 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 86 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 87 AU(s) ] [ 42.04 AU/sec ] [  0h  0m  2s ] [ 88 AU(s) ] [ 42.04 AU/sec ] [  0h  0m  2s ] [ 89 AU(s) ] [ 42.04 AU/sec ] [  0h  0m  2s ] [ 90 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 91 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 92 AU(s) ] [ 42.04 AU/sec ] [  0h  0m  2s ] [ 93 AU(s) ] [ 42.04 AU/sec ] [  0h  0m  2s ] [ 94 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 95 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 96 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 97 AU(s) ] [ 42.04 AU/sec ] [  0h  0m  2s ] [ 98 AU(s) ] [ 42.06 AU/sec ] [  0h  0m  2s ] [ 99 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 100 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 101 AU(s) ] [ 42.06 AU/sec ] [  0h  0m  2s ] [ 102 AU(s) ] [ 42.06 AU/sec ] [  0h  0m  2s ] [ 103 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 104 AU(s) ] [ 42.05 AU/sec ] [  0h  0m  2s ] [ 105 AU(s) ] [ 42.06 AU/sec ] [  0h  0m  2s ] [ 106 AU(s) ] [ 42.06 AU/sec ] [  0h  0m  2s ] [ 107 AU(s) ] [ 42.07 AU/sec ] [  0h  0m  2s ] [ 108 AU(s) ] [ 42.07 AU/sec ] [  0h  0m  2s ] [ 109 AU(s) ] [ 42.07 AU/sec ] [  0h  0m  2s ] [ 110 AU(s) ] [ 42.08 AU/sec ] [  0h  0m  2s ] [ 111 AU(s) ] [ 42.07 AU/sec ] [  0h  0m  2s ] [ 112 AU(s) ] [ 42.07 AU/sec ] [  0h  0m  2s ] [ 113 AU(s) ] [ 42.07 AU/sec ] [  0h  0m  2s ] [ 114 AU(s) ] [ 42.08 AU/sec ] [  0h  0m  2s ] [ 115 AU(s) ] [ 42.07 AU/sec ] [  0h  0m  2s ] [ 116 AU(s) ] [ 42.09 AU/sec ] [  0h  0m  2s ] [ 117 AU(s) ] [ 42.08 AU/sec ] [  0h  0m  2s ] [ 118 AU(s) ] [ 42.08 AU/sec ] [  0h  0m  2s ] [ 119 AU(s) ] [ 42.08 AU/sec ] [  0h  0m  2s ] [ 120 AU(s) ] [ 42.07 AU/sec ] [  0h  0m  2s ] [ 121 AU(s) ] [ 42.08 AU/sec ] [  0h  0m  2s ] [ 122 AU(s) ] [ 42.08 AU/sec ] [  0h  0m  2s ] [ 123 AU(s) ] [ 42.09 AU/sec ] [  0h  0m  2s ] [ 124 AU(s) ] [ 42.07 AU/sec ] [  0h  0m  2s ] ================================================================================
+End of file
+=== Summary ====================================================================
+Processed access units            = 125
+Decoded frame count               = 125
+Total decoding time               = 2971 msec, 2.971 sec
+Average decoding time for a frame = 23 msec
+Average decoding speed            = 42.073 frames/sec
+================================================================================
+<end of output>
+Test time =   3.67 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[Decoded frame count               = 125]
+"decode" end time: Jan 09 04:36 UTC
+"decode" time elapsed: 00:00:03
+----------------------------------------------------------
+
+5/16 Testing: decode_qp_A
+5/16 Test: decode_qp_A
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/qp_A.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_qp_A" start time: Jan 09 04:36 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/qp_A.apv -v 3 --hash 
+
+================================================================================
+AU 0         3197997-bytes    1-frame(s)       1514 msec
+- FRM 0  GID 1     PRIMARY       3197915-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3197997-bytes    1-frame(s)       1518 msec
+- FRM 0  GID 1     PRIMARY       3197915-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3198648-bytes    1-frame(s)       1507 msec
+- FRM 0  GID 1     PRIMARY       3198566-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 4539 msec, 4.539 sec
+Average decoding time for a frame = 1513 msec
+Average decoding speed            = 0.661 frames/sec
+================================================================================
+<end of output>
+Test time =   6.12 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_qp_A" end time: Jan 09 04:36 UTC
+"decode_qp_A" time elapsed: 00:00:06
+----------------------------------------------------------
+
+6/16 Testing: decode_qp_B
+6/16 Test: decode_qp_B
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/qp_B.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_qp_B" start time: Jan 09 04:36 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/qp_B.apv -v 3 --hash 
+
+================================================================================
+AU 0         2885421-bytes    1-frame(s)       1507 msec
+- FRM 0  GID 1     PRIMARY       2885339-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         2889559-bytes    1-frame(s)       1496 msec
+- FRM 0  GID 1     PRIMARY       2889477-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         2899159-bytes    1-frame(s)       1514 msec
+- FRM 0  GID 1     PRIMARY       2899077-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 4517 msec, 4.517 sec
+Average decoding time for a frame = 1505 msec
+Average decoding speed            = 0.664 frames/sec
+================================================================================
+<end of output>
+Test time =   5.91 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_qp_B" end time: Jan 09 04:36 UTC
+"decode_qp_B" time elapsed: 00:00:05
+----------------------------------------------------------
+
+7/16 Testing: decode_qp_C
+7/16 Test: decode_qp_C
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/qp_C.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_qp_C" start time: Jan 09 04:36 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/qp_C.apv -v 3 --hash 
+
+================================================================================
+AU 0        14493687-bytes    1-frame(s)       1643 msec
+- FRM 0  GID 1     PRIMARY      14493605-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1        14493687-bytes    1-frame(s)       1611 msec
+- FRM 0  GID 1     PRIMARY      14493605-bytes  3840x2160 4:2:2-10  hash:match
+<end of output>
+Test time =  10.01 sec
+----------------------------------------------------------
+Test Fail Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_qp_C" end time: Jan 09 04:36 UTC
+"decode_qp_C" time elapsed: 00:00:10
+----------------------------------------------------------
+
+8/16 Testing: decode_qp_D
+8/16 Test: decode_qp_D
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/qp_D.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_qp_D" start time: Jan 09 04:36 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/qp_D.apv -v 3 --hash 
+
+================================================================================
+AU 0          614268-bytes    1-frame(s)       1489 msec
+- FRM 0  GID 1     PRIMARY        614186-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1          614268-bytes    1-frame(s)       1471 msec
+- FRM 0  GID 1     PRIMARY        614186-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2          614220-bytes    1-frame(s)       1468 msec
+- FRM 0  GID 1     PRIMARY        614138-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 4427 msec, 4.427 sec
+Average decoding time for a frame = 1475 msec
+Average decoding speed            = 0.678 frames/sec
+================================================================================
+<end of output>
+Test time =   4.78 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_qp_D" end time: Jan 09 04:37 UTC
+"decode_qp_D" time elapsed: 00:00:04
+----------------------------------------------------------
+
+9/16 Testing: decode_qp_E
+9/16 Test: decode_qp_E
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/qp_E.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_qp_E" start time: Jan 09 04:37 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/qp_E.apv -v 3 --hash 
+
+================================================================================
+AU 0         3119144-bytes    1-frame(s)       1514 msec
+- FRM 0  GID 1     PRIMARY       3119062-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3119144-bytes    1-frame(s)       1507 msec
+- FRM 0  GID 1     PRIMARY       3119062-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3119769-bytes    1-frame(s)       1513 msec
+- FRM 0  GID 1     PRIMARY       3119687-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 4534 msec, 4.534 sec
+Average decoding time for a frame = 1511 msec
+Average decoding speed            = 0.662 frames/sec
+================================================================================
+<end of output>
+Test time =   6.09 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_qp_E" end time: Jan 09 04:37 UTC
+"decode_qp_E" time elapsed: 00:00:06
+----------------------------------------------------------
+
+10/16 Testing: decode_syn_A
+10/16 Test: decode_syn_A
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/syn_A.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_syn_A" start time: Jan 09 04:37 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/syn_A.apv -v 3 --hash 
+
+================================================================================
+AU 0         3206458-bytes    1-frame(s)        408 msec
+- FRM 0  GID 1     PRIMARY       3206376-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+AU 1          601443-bytes    1-frame(s)        377 msec
+- FRM 0  GID 1     PRIMARY        601361-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+AU 2          601443-bytes    1-frame(s)        387 msec
+- FRM 0  GID 1     PRIMARY        601361-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 1172 msec, 1.172 sec
+Average decoding time for a frame = 390 msec
+Average decoding speed            = 2.560 frames/sec
+================================================================================
+<end of output>
+Test time =   1.91 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_syn_A" end time: Jan 09 04:37 UTC
+"decode_syn_A" time elapsed: 00:00:01
+----------------------------------------------------------
+
+11/16 Testing: decode_syn_B
+11/16 Test: decode_syn_B
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/syn_B.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_syn_B" start time: Jan 09 04:37 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/syn_B.apv -v 3 --hash 
+
+================================================================================
+AU 0         2043287-bytes    1-frame(s)        416 msec
+- FRM 0  GID 1     PRIMARY       2043205-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+AU 1         2043287-bytes    1-frame(s)        408 msec
+- FRM 0  GID 1     PRIMARY       2043205-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+AU 2         2043287-bytes    1-frame(s)        399 msec
+- FRM 0  GID 1     PRIMARY       2043205-bytes  1920x1080 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 1223 msec, 1.223 sec
+Average decoding time for a frame = 407 msec
+Average decoding speed            = 2.453 frames/sec
+================================================================================
+<end of output>
+Test time =   2.24 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_syn_B" end time: Jan 09 04:37 UTC
+"decode_syn_B" time elapsed: 00:00:02
+----------------------------------------------------------
+
+12/16 Testing: decode_tile_A
+12/16 Test: decode_tile_A
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/tile_A.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_tile_A" start time: Jan 09 04:37 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/tile_A.apv -v 3 --hash 
+
+================================================================================
+AU 0         3109535-bytes    1-frame(s)       4493 msec
+- FRM 0  GID 1     PRIMARY       3109453-bytes  3840x2160 4:2:2-10  hash:match
+<end of output>
+Test time =  10.01 sec
+----------------------------------------------------------
+Test Fail Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_tile_A" end time: Jan 09 04:37 UTC
+"decode_tile_A" time elapsed: 00:00:10
+----------------------------------------------------------
+
+13/16 Testing: decode_tile_B
+13/16 Test: decode_tile_B
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/tile_B.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_tile_B" start time: Jan 09 04:37 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/tile_B.apv -v 3 --hash 
+
+================================================================================
+AU 0         3119144-bytes    1-frame(s)       1509 msec
+- FRM 0  GID 1     PRIMARY       3119062-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3119144-bytes    1-frame(s)       1514 msec
+- FRM 0  GID 1     PRIMARY       3119062-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3119769-bytes    1-frame(s)       1506 msec
+- FRM 0  GID 1     PRIMARY       3119687-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 4528 msec, 4.528 sec
+Average decoding time for a frame = 1509 msec
+Average decoding speed            = 0.663 frames/sec
+================================================================================
+<end of output>
+Test time =   6.05 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_tile_B" end time: Jan 09 04:37 UTC
+"decode_tile_B" time elapsed: 00:00:06
+----------------------------------------------------------
+
+14/16 Testing: decode_tile_C
+14/16 Test: decode_tile_C
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/tile_C.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_tile_C" start time: Jan 09 04:37 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/tile_C.apv -v 3 --hash 
+
+================================================================================
+AU 0         6278681-bytes    1-frame(s)       5930 msec
+- FRM 0  GID 1     PRIMARY       6278599-bytes  7680x4320 4:2:2-10  hash:match
+<end of output>
+Test time =  10.01 sec
+----------------------------------------------------------
+Test Fail Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_tile_C" end time: Jan 09 04:37 UTC
+"decode_tile_C" time elapsed: 00:00:10
+----------------------------------------------------------
+
+15/16 Testing: decode_tile_D
+15/16 Test: decode_tile_D
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/tile_D.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_tile_D" start time: Jan 09 04:37 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/tile_D.apv -v 3 --hash 
+
+================================================================================
+AU 0         3151784-bytes    1-frame(s)       1505 msec
+- FRM 0  GID 1     PRIMARY       3151702-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3151784-bytes    1-frame(s)       1512 msec
+- FRM 0  GID 1     PRIMARY       3151702-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3152409-bytes    1-frame(s)       1520 msec
+- FRM 0  GID 1     PRIMARY       3152327-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 4538 msec, 4.538 sec
+Average decoding time for a frame = 1512 msec
+Average decoding speed            = 0.661 frames/sec
+================================================================================
+<end of output>
+Test time =   6.08 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_tile_D" end time: Jan 09 04:37 UTC
+"decode_tile_D" time elapsed: 00:00:06
+----------------------------------------------------------
+
+16/16 Testing: decode_tile_E
+16/16 Test: decode_tile_E
+Command: "/work/build_s390x_final/bin/oapv_app_dec" "-i" "/work/test/bitstream/tile_E.apv" "-v" "3" "--hash"
+Directory: /work/build_s390x_final
+"decode_tile_E" start time: Jan 09 04:37 UTC
+Output:
+----------------------------------------------------------
+  ____                ___   ___ _   __
+ / __ \___  ___ ___  / _ | / _ \ | / / Decoder (v0.2.0.4)
+/ /_/ / _ \/ -_) _ \/ __ |/ ___/ |/ / 
+\____/ .__/\__/_//_/_/ |_/_/   |___/  
+    /_/                               
+
+Command line: /work/build_s390x_final/bin/oapv_app_dec -i /work/test/bitstream/tile_E.apv -v 3 --hash 
+
+================================================================================
+AU 0         3120164-bytes    1-frame(s)       1509 msec
+- FRM 0  GID 1     PRIMARY       3120082-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 1         3120164-bytes    1-frame(s)       1520 msec
+- FRM 0  GID 1     PRIMARY       3120082-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+AU 2         3120789-bytes    1-frame(s)       1503 msec
+- FRM 0  GID 1     PRIMARY       3120707-bytes  3840x2160 4:2:2-10  hash:match
+================================================================================
+End of file
+--> end of bitstream
+=== Summary ====================================================================
+Processed access units            = 3
+Decoded frame count               = 3
+Total decoding time               = 4532 msec, 4.532 sec
+Average decoding time for a frame = 1510 msec
+Average decoding speed            = 0.662 frames/sec
+================================================================================
+<end of output>
+Test time =   6.05 sec
+----------------------------------------------------------
+Test Pass Reason:
+Required regular expression found. Regex=[.*hash:match.*]
+"decode_tile_E" end time: Jan 09 04:37 UTC
+"decode_tile_E" time elapsed: 00:00:06
+----------------------------------------------------------
+
+End testing: Jan 09 04:37 UTC

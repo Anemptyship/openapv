@@ -1,0 +1,1 @@
+/usr/bin/cc -pg -g -fno-omit-frame-pointer -g -O0 -fomit-frame-pointer -pthread -std=c99 -Wall -Wno-unused-function -Wno-pointer-sign -Wno-pointer-to-int-cast -g  -lm CMakeFiles/oapv_app_enc.dir/oapv_app_enc.c.o -o ../bin/oapv_app_enc  ../lib/liboapv.a -lm 

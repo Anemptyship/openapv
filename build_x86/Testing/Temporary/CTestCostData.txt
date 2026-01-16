@@ -1,0 +1,17 @@
+Encoder_runs 1 0.00153292
+Decoder_runs 1 0.00129001
+encode 1 0.54725
+decode 1 0.212016
+decode_qp_A 1 0.474219
+decode_qp_B 1 0.457453
+decode_qp_C 1 0.986765
+decode_qp_D 1 0.355199
+decode_qp_E 1 0.488173
+decode_syn_A 1 0.150773
+decode_syn_B 1 0.177561
+decode_tile_A 1 1.13948
+decode_tile_B 1 0.469845
+decode_tile_C 1 1.53461
+decode_tile_D 1 0.470269
+decode_tile_E 1 0.470733
+---
