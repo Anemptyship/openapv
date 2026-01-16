@@ -134,9 +134,8 @@ jobs:
         run: |
           cd build-s390x
           export QEMU_LD_PREFIX=/usr/s390x-linux-gnu
-          # Some high-resolution tests may timeout under QEMU emulation
-          # Exclude 4K/8K tests that are too slow for QEMU
-          ctest --output-on-failure -E "(decode_qp_C|decode_tile_C)"
+          # Increase timeout for QEMU emulation (10x slower than native)
+          ctest --output-on-failure --test-timeout 120
 
       - name: Upload test results
         uses: actions/upload-artifact@v6
