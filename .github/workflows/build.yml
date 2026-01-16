@@ -134,8 +134,10 @@ jobs:
         run: |
           cd build-s390x
           export QEMU_LD_PREFIX=/usr/s390x-linux-gnu
-          # Increase timeout 12x for QEMU emulation (10s * 12 = 120s)
-          ctest --output-on-failure --overwrite TimeoutFactor=12
+          # Increase timeout for QEMU emulation (10s -> 120s)
+          # CMake hardcodes TIMEOUT in set_tests_properties, so we modify the generated file
+          find . -name "CTestTestfile.cmake" -exec sed -i 's/TIMEOUT "10"/TIMEOUT "120"/g' {} \;
+          ctest --output-on-failure
 
       - name: Upload test results
         uses: actions/upload-artifact@v6
