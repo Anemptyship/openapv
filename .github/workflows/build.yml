@@ -83,7 +83,7 @@ jobs:
       - name: Install s390x toolchain
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-s390x-linux-gnu g++-s390x-linux-gnu binutils-s390x-linux-gnu
+          sudo apt-get install -y gcc-s390x-linux-gnu g++-s390x-linux-gnu binutils-s390x-linux-gnu libc6-s390x-cross
 
       - name: Build (crosscompile) PC Linux s390x
         run: |
@@ -149,6 +149,8 @@ jobs:
 
   test-linux-s390x:
     runs-on: ubuntu-latest
+    env:
+      QEMU_LD_PREFIX: /usr/s390x-linux-gnu
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -159,7 +161,7 @@ jobs:
       - name: Install s390x toolchain and emulator
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-s390x-linux-gnu g++-s390x-linux-gnu binutils-s390x-linux-gnu qemu-user qemu-user-static
+          sudo apt-get install -y gcc-s390x-linux-gnu g++-s390x-linux-gnu binutils-s390x-linux-gnu libc6-s390x-cross qemu-user qemu-user-static
 
       - name: Build (crosscompile) PC Linux s390x for tests
         run: |
