@@ -593,9 +593,26 @@ int oapve_vlc_get_coef_rate(oapve_core_t* core, s16* coef, int c)
 // start of decoder code
 #if ENABLE_DECODER
 ///////////////////////////////////////////////////////////////////////////////
+// Optimization: 32-bit refill to reduce branch overhead. 
+// NOTE: This implementation assumes Little Endian CPU (x86/ARM64).
+// For Big Endian CPUs, BSR_SWAP32 should be adjusted (no swap needed if stream is BE).
+#if defined(__GNUC__) || defined(__clang__)
+#define BSR_SWAP32(x) __builtin_bswap32(x)
+#else
+#define BSR_SWAP32(x) ((((x) & 0xff000000) >> 24) | (((x) & 0x00ff0000) >> 8) | (((x) & 0x0000ff00) << 8) | (((x) & 0x000000ff) << 24))
+#endif
+
 #define BSR_FLUSH_1BYTE(bs) {                   \
-        (bs)->code = *((bs)->cur++) << 24;      \
-        (bs)->leftbits = 8;                     \
+        if ((bs)->cur + 4 <= (bs)->end) {       \
+            u32 _val;                           \
+            memcpy(&_val, (bs)->cur, 4);        \
+            (bs)->code = BSR_SWAP32(_val);      \
+            (bs)->cur += 4;                     \
+            (bs)->leftbits = 32;                \
+        } else {                                \
+            (bs)->code = *((bs)->cur++) << 24;  \
+            (bs)->leftbits = 8;                 \
+        }                                       \
     }
 
 #define BSR_READ_1BIT(bs, bit) {                \
