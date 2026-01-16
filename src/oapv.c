@@ -31,6 +31,7 @@
 
 #include "oapv_def.h"
 
+
 static void imgb_pad(oapv_imgb_t *imgb, int aw, int ah, int comp_sft[N_C][2])
 {
     int imgb_w = imgb->w[0];
@@ -1632,6 +1633,7 @@ static int dec_tile_comp(oapvd_tile_t *tile, oapvd_ctx_t *ctx, oapvd_core_t *cor
             for(blk_y = mb_y; blk_y < (mb_y + mb_h); blk_y += OAPV_BLK_H) {
                 for(blk_x = mb_x; blk_x < (mb_x + mb_w); blk_x += OAPV_BLK_W) {
                     // clear coefficient buffers in a macroblock
+                    // clear coefficient buffers in a macroblock
                     oapv_mset_x128(core->coef, 0, sizeof(s16)*OAPV_MB_D);
 
                     // parse DC coefficient
@@ -1647,6 +1649,7 @@ static int dec_tile_comp(oapvd_tile_t *tile, oapvd_ctx_t *ctx, oapvd_core_t *cor
                     ret = dec_block(ctx, core, OAPV_LOG2_BLK_W, OAPV_LOG2_BLK_H, c);
                     oapv_assert_rv(OAPV_SUCCEEDED(ret), ret);
 
+                    // copy decoded block to image buffer
                     // copy decoded block to image buffer
                     d16 = (s16 *)((u8 *)dst + blk_y * s_dst) + blk_x;
                     ctx->fn_block_to_imgb[c](core->coef, OAPV_BLK_W, OAPV_BLK_H, (OAPV_BLK_W << 1), blk_x, s_dst, d16, ctx->bit_depth);
