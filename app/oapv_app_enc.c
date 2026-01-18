@@ -552,6 +552,7 @@ static void print_commandline(int argc, const char **argv)
     logv3("\n\n");
 }
 
+#if 0
 static void add_thousands_comma_to_number(char *in, char *out)
 {
     int len, left = 0;
@@ -574,6 +575,7 @@ static void add_thousands_comma_to_number(char *in, char *out)
     }
     *out='\0';
 }
+#endif
 
 static void print_config(args_var_t *vars, oapve_param_t *param)
 {

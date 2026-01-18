@@ -67,6 +67,8 @@ int oapve_param_default(oapve_param_t *param)
 
 ///////////////////////////////////////////////////////////////////////////////
 // parameter parsing helper function for encoder
+// parameter parsing helper function for encoder
+#if 0
 static int is_digit(const char* str)
 {
     while(*str) {
@@ -76,6 +78,7 @@ static int is_digit(const char* str)
     }
     return 1;
 }
+#endif
 
 static int get_ival_from_skey(const oapv_dict_str_int_t * dict, const char * skey, int * ival)
 {

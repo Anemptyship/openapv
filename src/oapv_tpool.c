@@ -271,6 +271,7 @@ static tpool_result_t tpool_terminate_thread(oapv_thread_t *thread_id)
     return TPOOL_SUCCESS;
 }
 
+#if 0
 static int tpool_threadsafe_decrement(oapv_sync_obj_t sobj, volatile int *pcnt)
 {
     thread_mutex_t *imutex = (thread_mutex_t *)(sobj);
@@ -284,6 +285,7 @@ static int tpool_threadsafe_decrement(oapv_sync_obj_t sobj, volatile int *pcnt)
 
     return temp;
 }
+#endif
 
 oapv_sync_obj_t oapv_tpool_sync_obj_create()
 {
@@ -552,6 +554,7 @@ tpool_result_t tpool_terminate_thread(oapv_thread_t *thread_id)
     return TPOOL_SUCCESS;
 }
 
+#if 0
 static int tpool_threadsafe_decrement(oapv_sync_obj_t sobj, volatile int *pcnt)
 {
     thread_mutex_t *imutex = (thread_mutex_t *)(sobj);
@@ -585,6 +588,7 @@ static int tpool_threadsafe_decrement(oapv_sync_obj_t sobj, volatile int *pcnt)
 #endif
     return temp;
 }
+#endif
 
 oapv_sync_obj_t oapv_tpool_sync_obj_create()
 {

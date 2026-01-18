@@ -31,6 +31,12 @@
 #ifndef _OAPV_APP_Y4M_H_
 #define _OAPV_APP_Y4M_H_
 
+#if defined(__GNUC__) || defined(__clang__)
+#define OAPV_APP_UNUSED __attribute__((unused))
+#else
+#define OAPV_APP_UNUSED
+#endif
+
 typedef struct y4m_params {
     int w;
     int h;
@@ -40,7 +46,7 @@ typedef struct y4m_params {
     int bit_depth;
 } y4m_params_t;
 
-static int y4m_test(FILE *fp)
+static int OAPV_APP_UNUSED y4m_test(FILE *fp)
 {
 
     char buffer[9] = { 0 };
@@ -218,7 +224,7 @@ int y4m_header_parser(FILE *ip_y4m, y4m_params_t *y4m)
     return 0;
 }
 
-static void y4m_update_param(args_parser_t *args, y4m_params_t *y4m)
+static void OAPV_APP_UNUSED y4m_update_param(args_parser_t *args, y4m_params_t *y4m)
 {
     args->set_int2str(args, "width", y4m->w);
     args->set_int2str(args, "height", y4m->h);

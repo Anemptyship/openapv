@@ -32,6 +32,12 @@
 #ifndef _OAPV_APP_ARGS_H_
 #define _OAPV_APP_ARGS_H_
 
+#if defined(__GNUC__) || defined(__clang__)
+#define OAPV_APP_UNUSED __attribute__((unused))
+#else
+#define OAPV_APP_UNUSED
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -133,7 +139,7 @@ static int args_read_value(args_opt_t *ops, const char *argv)
     return 0;
 }
 
-static int args_get_arg(args_opt_t *ops, int idx, char *result)
+static int OAPV_APP_UNUSED args_get_arg(args_opt_t *ops, int idx, char *result)
 {
     char        vtype[32];
     char        value[512];
@@ -170,7 +176,7 @@ static int args_get_arg(args_opt_t *ops, int idx, char *result)
     return 0;
 }
 
-static int args_parse_int_x_int(char *str, int *num0, int *num1)
+static int OAPV_APP_UNUSED args_parse_int_x_int(char *str, int *num0, int *num1)
 {
     char  str0_t[64];
     int   i, cnt0 = 0, cnt1;
@@ -340,7 +346,7 @@ static int args_set_variable_by_key_long(args_opt_t *opts, char *key_long, void 
     return 0;
 }
 
-static int args_set_variable_by_key(args_opt_t *opts, char *key, void *var)
+static int OAPV_APP_UNUSED args_set_variable_by_key(args_opt_t *opts, char *key, void *var)
 {
     int idx;
     idx = args_search_short_arg(opts, key[0]);

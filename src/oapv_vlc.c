@@ -81,6 +81,7 @@
 
 static const u8 enc_prefix_vlc[3][2] = {{1, 0xFF}, {0, 0}, {0, 1}}; // 0xFF is don't care
 
+#if 0
 static void enc_vlc_write(oapv_bs_t *bs, int val, int k)
 {
     u32 code = 0;
@@ -113,6 +114,7 @@ static void enc_vlc_write(oapv_bs_t *bs, int val, int k)
     // write to bitstream buffer
     BSW_WRITE_32BITS(bs, code, nb);
 }
+#endif
 
 static u32 enc_vlc_write_to_code(oapv_bs_t *bs, int val, int k, int *nbits)
 {

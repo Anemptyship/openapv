@@ -32,6 +32,12 @@
 #ifndef _OAPV_APP_UTIL_H_
 #define _OAPV_APP_UTIL_H_
 
+#if defined(__GNUC__) || defined(__clang__)
+#define OAPV_APP_UNUSED __attribute__((unused))
+#else
+#define OAPV_APP_UNUSED
+#endif
+
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -386,7 +392,7 @@ ERR:
     return NULL;
 }
 
-static int imgb_read(FILE *fp, oapv_imgb_t *img, int width, int height, int is_y4m)
+static int OAPV_APP_UNUSED imgb_read(FILE *fp, oapv_imgb_t *img, int width, int height, int is_y4m)
 {
     int            f_w, f_h;
     unsigned char *p8;
@@ -675,7 +681,7 @@ static void imgb_cpy(oapv_imgb_t *dst, oapv_imgb_t *src)
     }
 }
 
-static void measure_psnr(oapv_imgb_t *org, oapv_imgb_t *rec, double psnr[4], int bit_depth)
+static void OAPV_APP_UNUSED measure_psnr(oapv_imgb_t *org, oapv_imgb_t *rec, double psnr[4], int bit_depth)
 {
     double sum[4], mse[4];
 
@@ -728,7 +734,7 @@ static void measure_psnr(oapv_imgb_t *org, oapv_imgb_t *rec, double psnr[4], int
     }
 }
 
-static int write_data(char *fname, unsigned char *data, int size)
+static int OAPV_APP_UNUSED write_data(char *fname, unsigned char *data, int size)
 {
     FILE *fp;
 
@@ -753,7 +759,7 @@ static int clear_data(char *fname)
     fclose(fp);
     return 0;
 }
-static unsigned char char_to_hex(char a)
+static unsigned char OAPV_APP_UNUSED char_to_hex(char a)
 {
     unsigned char ret;
 

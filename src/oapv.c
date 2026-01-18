@@ -167,7 +167,7 @@ static void imgb_to_blk_16(void *src, int blk_w, int blk_h, int s_src, int offse
 static void imgb_to_blk_p21x_y(void *src, int blk_w, int blk_h, int s_src, int offset_src, int s_dst, void *dst, int bd)
 {
     const int mid_val = (1 << (bd - 1));
-    u16      *s = (s16 *)src;
+    u16      *s = (u16 *)src;
     s16      *d = (s16 *)dst;
     int       shift_pic_bits = 16 - bd;
 
@@ -366,6 +366,7 @@ static void enc_core_free(oapve_core_t *core)
     oapv_mfree_fast(core);
 }
 
+#if 0
 static int enc_core_init(oapve_core_t *core, oapve_ctx_t *ctx, int tile_idx, int thread_idx)
 {
     core->tile_idx = tile_idx;
@@ -380,6 +381,7 @@ static void enc_minus_mid_val(s16 *coef, int w_blk, int h_blk, int bit_depth)
         coef[i] -= mid_val;
     }
 }
+#endif
 
 static int enc_set_tile_info(oapve_tile_t *ti, int w_pel, int h_pel, int tile_w,
                              int tile_h, int *num_tile_cols, int *num_tile_rows, int *num_tiles)
